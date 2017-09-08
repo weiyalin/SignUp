@@ -27,8 +27,13 @@ class StudentController extends Controller
         $count = DB::table("student")
             ->where('student_id',$student_id)
             ->count();
+        $count2 = DB::table("student")
+            ->where('phone_num',$phone_num)
+            ->count();
         if($count){
             return json_encode(['code' => 1, 'msg' => '已报名，请不要重复报名']);
+        }else if($count2){
+            return json_encode(['code' => 1, 'msg' => '电话号码已存在']);
         }
 
         $id = DB::table('student')->insertGetId([
@@ -42,5 +47,27 @@ class StudentController extends Controller
             return json_encode(['code' => 0, 'msg' => '报名成功']);
         }
         return json_encode(['code' => 1, 'msg' => '报名失败，请重新报名']);
+    }
+    public function search(Request $request){
+
+        $student_id = trim($request->student_id);
+
+        if(strlen($student_id) == 0 ){
+            return json_encode(['code' => 1, 'msg' => '请重新填写学号']);
+        }
+        $count = DB::table("student")->where('student_id',$student_id)->count();
+        if($count){
+            $student = DB::table("student")->where('student_id',$student_id)->first();
+            return json_encode([
+                'code' => 0,
+                'msg' => [
+                    'name'          => $student->name,
+                    'grade'         => $student->grade,
+                    'phone_num'     => $student->phone_num,
+                    'create_time'   => $student->create_time,
+                ]
+            ]);
+        }
+        return json_encode(['code' => 1, 'msg' => '未报名']);
     }
 }

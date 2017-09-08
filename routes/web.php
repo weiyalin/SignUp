@@ -16,3 +16,4 @@ Route::get('/', function () {
     return view('index');
 });
 Route::post('/sign','student\StudentController@sign');
+Route::post('/search','student\StudentController@search');

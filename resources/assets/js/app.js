@@ -15,11 +15,13 @@ require('./bootstrap');
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import App from './App.vue'
+import router from './router/index.js'
 
 Vue.use(ElementUI)
 
-Vue.component('example', require('./components/Example.vue'));
-
-const app = new Vue({
+new Vue({
     el: '#app',
+    render: h => h(App),
+    router
 });
