@@ -70,4 +70,26 @@ class StudentController extends Controller
         }
         return json_encode(['code' => 1, 'msg' => '未报名']);
     }
+    public function reset(Request $request){
+        $name       = trim($request->name);
+        $grade      = trim($request->grade);
+        $student_id = trim($request->student_id);
+        $phone_num  = trim($request->phone_num);
+
+        if( strlen($name) == 0 ||  strlen($grade) == 0 || strlen($student_id) == 0 || strlen($phone_num) == 0){
+            return json_encode(['code' => 1, 'msg' => '请将数据填写完整']);
+        }
+        $count = DB::table("student")->where('student_id',$student_id)->count();
+        if($count == 0){
+            return json_encode(['code' => 1, 'msg' => '未报名']);
+        }
+        DB::table("student")
+            ->where('student_id',$student_id)
+            ->update([
+                'name'          => $name,
+                'grade'         => $grade,
+                'phone_num'     => $phone_num
+            ]);
+        return json_encode(['code' => 0, 'msg' => '修改成功']);
+    }
 }

@@ -45,7 +45,7 @@
             },
             test(){
                 var reg_name    = /^[\u4E00-\u9FA5]{2,4}$/;
-                var reg_id      = /^20\d{9}$/;
+                var reg_id      = /^20\d{8,9}$/;
                 var reg_mobile  = /^1[3|5|8]\d{9}$/;
                 var reg_phone    = /^0\d{2,3}-?\d{7,8}$/;
 
