@@ -25,6 +25,10 @@
                 <el-col :span="14">{{ student.phone_num }}</el-col>
             </el-row>
             <el-row :gutter="20">
+                <el-col class="title" :span="10">方向</el-col>
+                <el-col :span="14">{{ direction }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
                 <el-col class="title" :span="10">时间</el-col>
                 <el-col :span="14">{{new Date(student.create_time).format('yyyy-MM-dd hh:mm')}}</el-col>
             </el-row>
@@ -41,13 +45,22 @@
                 <el-input placeholder="电话号码" v-model="student.phone_num"></el-input>
             </el-form-item>
             <el-form-item>
+                <el-radio class="radio my_radio" v-model="student.radio" label="1">开发</el-radio>
+                <el-radio class="radio my_radio my_radio2" v-model="student.radio" label="2">美工</el-radio>
+            </el-form-item>
+            <el-form-item>
                 <el-button class="my_submit" type="primary" @click="onSubmit">修改</el-button>
             </el-form-item>
         </el-form>
-
     </div>
 </template>
 <style>
+    .my_radio{
+        margin: 0 15%;
+    }
+    .my_radio2{
+        float: right;
+    }
     .my_item{
         margin-right: 0 !important;
     }
@@ -74,11 +87,13 @@
                 show_reset:false,
                 student_id: '',
                 searching : false,
+                direction : '开发',
                 student   : {
                     name        : '',
                     grade       : '',
                     phone_num   : '',
                     student_id  : '',
+                    radio       : '1',
                     create_time : 0,
                 }
             }
@@ -100,6 +115,15 @@
                 }
                 return false;
             },
+            reset_direction(){
+                if(this.student.radio == 1){
+                    this.direction = '开发';
+                }else if( this.student.radio == 2 ){
+                    this.direction = '美工';
+                }else{
+                    this.direction = '未知';
+                }
+            },
             onSearchClick() {
                 this.searching = true;
                 this.remove_spaces();
@@ -116,6 +140,8 @@
                                 this.student.name       = data.msg.name;
                                 this.student.grade      = data.msg.grade;
                                 this.student.phone_num  = data.msg.phone_num;
+                                this.student.radio      = data.msg.radio.toString();
+                                this.reset_direction();
                                 this.student.create_time= data.msg.create_time;
                             } else {
                                 this.$message({
@@ -169,6 +195,7 @@
                         grade      : this.student.grade,
                         student_id : this.student.student_id,
                         phone_num  : this.student.phone_num,
+                        radio      : this.student.radio,
                     }).then(
                         function (response) {
                             var data = response.data;
@@ -178,6 +205,7 @@
                                     message: data.msg,
                                     type: 'success'
                                 });
+                                this.reset_direction();
                                 this.show_reset = false;
                                 this.show_meg   = true;
                             } else {

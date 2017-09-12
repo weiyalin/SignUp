@@ -14,6 +14,10 @@
                 <el-input placeholder="电话号码" v-model="form.phone_num"></el-input>
             </el-form-item>
             <el-form-item>
+                <el-radio class="radio my_radio" v-model="form.radio" label="1">开发</el-radio>
+                <el-radio class="radio my_radio my_radio2" v-model="form.radio" label="2">美工</el-radio>
+            </el-form-item>
+            <el-form-item>
                 <el-button class="my_submit" type="primary" @click="onSubmit">报名</el-button>
             </el-form-item>
         </el-form>
@@ -22,6 +26,12 @@
 <style>
     .my_submit{
         width: 100%;
+    }
+    .my_radio{
+        margin: 0 15%;
+    }
+    .my_radio2{
+        float: right;
     }
 </style>
 <script>
@@ -33,6 +43,7 @@
                     grade:      '',
                     student_id: '',
                     phone_num:  '',
+                    radio:      '1',
                 }
             }
         },
@@ -46,7 +57,7 @@
             test(){
                 var reg_name    = /^[\u4E00-\u9FA5]{2,4}$/;
                 var reg_id      = /^20\d{8,9}$/;
-                var reg_mobile  = /^1[3|5|8]\d{9}$/;
+                var reg_mobile  = /^1[3|5|7|8]\d{9}$/;
                 var reg_phone    = /^0\d{2,3}-?\d{7,8}$/;
 
                 if(!(reg_name.test(this.form.name))){
@@ -86,6 +97,7 @@
                         grade      : this.form.grade,
                         student_id : this.form.student_id,
                         phone_num  : this.form.phone_num,
+                        radio      : this.form.radio,
                     }).then(
                         function (response) {
                             var data = response.data;
