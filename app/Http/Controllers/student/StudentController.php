@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     public function sign(Request $request){
-        return json_encode(['code' => 1, 'msg' => '报名已截止！']);
+//        return json_encode(['code' => 1, 'msg' => '报名已截止！']);
         $name       = trim($request->name);
         $grade      = trim($request->grade);
         $student_id = trim($request->student_id);

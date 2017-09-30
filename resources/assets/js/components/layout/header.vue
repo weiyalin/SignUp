@@ -11,6 +11,6 @@
         text-align: center;
         font-size: 25px;
         color: white;
-        background-color: rgb(153,169,191);
+        background-color: orange;
     }
 </style>

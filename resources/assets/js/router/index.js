@@ -7,11 +7,11 @@ export default new VueRouter({
     routes: [
         {
             path: '/',
-            component: resolve =>void(require(['../components/sign/Sign.vue'], resolve))
+            component: resolve => void(require(['../components/sign/Sign.vue'], resolve))
         },
         {
             path: '/select',
-            component: resolve =>void(require(['../components/select/Select.vue'], resolve))
+            component: resolve => void(require(['../components/select/Select.vue'], resolve))
         },
     ]
 })

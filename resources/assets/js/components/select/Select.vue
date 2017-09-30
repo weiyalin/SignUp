@@ -6,7 +6,7 @@
                 <el-input style="" v-model="student_id" placeholder="输入学号查找" ></el-input>
             </el-form-item>
             <el-form-item style="width: 23%; float: right" class="my_item">
-                <el-button type="primary" icon="search" @click="onSearchClick"
+                <el-button class="search-button" type="primary" icon="search" @click="onSearchClick"
                            :loading="searching" style="width:100%;">
                 </el-button>
             </el-form-item>
@@ -36,8 +36,8 @@
         </div>
         <el-form ref="form" :model="student" v-if="show_reset">
             <el-form-item>
-                <el-input placeholder="姓名" v-model="student.name"></el-input>
-            </el-form-item>
+            <el-input placeholder="姓名" v-model="student.name"></el-input>
+        </el-form-item>
             <el-form-item>
                 <el-input placeholder="班级" v-model="student.grade"></el-input>
             </el-form-item>
@@ -70,6 +70,22 @@
     }
     .my_submit{
         width: 100%;
+        background-color: orange;
+    }
+    .my_submit:active{
+        background-color: #fa5e00;
+    }
+    .my_submit:hover{
+        background-color: #fa5e00;
+    }
+    .search-button{
+        background-color: orange;
+    }
+    .search-button:hover{
+        background-color: #fa5e00;
+    }
+    .search-button:active{
+        background-color: #fa5e00;
     }
     .el-form-item__content{
         width: 100%;
@@ -77,6 +93,12 @@
     .el-row{
         padding: 20px;
         border-bottom: 1px #74787E solid;
+    }
+    .el-row:hover{
+        border-color: orange;
+    }
+    .weui-cell{
+        width: 100%;
     }
 </style>
 <script>
@@ -246,6 +268,6 @@
                 this.show_meg   = false;
                 this.show_reset = true;
             }
-        }
+        },
     }
 </script>
