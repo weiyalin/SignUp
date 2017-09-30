@@ -11,10 +11,21 @@ namespace App\Http\Controllers\student;
 use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
+
+use  App\Http\Controllers\sms\SmsController;
+
 class StudentController extends Controller
 {
     public function sign(Request $request){
-//        return json_encode(['code' => 1, 'msg' => '报名已截止！']);
+
+        return json_encode(['code' => 1, 'msg' => '报名已截止！']);
+        $input = $request->all();
+        $phone = $input['phone_num'];
+
+        $sms = new SmsController();
+
+        $sms->sendSms($phone);
+
         $name       = trim($request->name);
         $grade      = trim($request->grade);
         $student_id = trim($request->student_id);
@@ -100,5 +111,12 @@ class StudentController extends Controller
                 'radio'         => $radio
             ]);
         return json_encode(['code' => 0, 'msg' => '修改成功']);
+    }
+    
+    
+    public function train(Request $request) {
+        $name = trim($request->name);
+        $grade = trim($request->grade);
+        $student_id = trim($request->student_id);
     }
 }

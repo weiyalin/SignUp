@@ -162,6 +162,8 @@
             onSubmit() {
                 this.remove_spaces();
                 if(this.test()){
+
+
                     this.$http.post('/sign',{
                         name       : this.form.name,
                         grade      : this.form.grade,

@@ -14,6 +14,7 @@
     <div id='app'>
         <example></example>
     </div >
+
 </body>
 <script type="text/javascript" src="{{ url('dist/js/manifest.js') }}"></script>
 <script type="text/javascript" src="{{ url('dist/js/vendor.js') }}"></script>
