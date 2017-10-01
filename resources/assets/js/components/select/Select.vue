@@ -70,22 +70,6 @@
     }
     .my_submit{
         width: 100%;
-        background-color: orange;
-    }
-    .my_submit:active{
-        background-color: #fa5e00;
-    }
-    .my_submit:hover{
-        background-color: #fa5e00;
-    }
-    .search-button{
-        background-color: orange;
-    }
-    .search-button:hover{
-        background-color: #fa5e00;
-    }
-    .search-button:active{
-        background-color: #fa5e00;
     }
     .el-form-item__content{
         width: 100%;
@@ -95,7 +79,7 @@
         border-bottom: 1px #74787E solid;
     }
     .el-row:hover{
-        border-color: orange;
+        /*border-color: orange;*/
     }
     .weui-cell{
         width: 100%;

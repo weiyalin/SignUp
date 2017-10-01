@@ -12,10 +12,4 @@
         text-align: center;
         font-size: 18px;
     }
-    .my_menu:hover{
-        color:orange;
-    }
-    .my_menu:active{
-        color:orange;
-    }
 </style>

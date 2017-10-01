@@ -30,13 +30,6 @@
 <style>
     .my_submit{
         width: 100%;
-        background-color: orange;
-    }
-    .my_submit:active{
-        background-color: #fa5e00;
-    }
-    .my_submit:hover{
-        background-color: #fa5e00;
     }
     .my_radio{
         margin: 20px 15% 0 15%;
@@ -49,7 +42,7 @@
         height: 37px;
         line-height: 34px;
         border-radius: 3px;
-        background: #ffb400;
+        background: #17195f;
         border: none;
         padding: 0 6px;
         color: #fff;
@@ -58,14 +51,11 @@
         top: 0;
         right:0;
     }
+    .sendSmsBtn:hover{
+        color:#fff;
+    }
     .sendSmsBtn .dissendSmsBtn{
         background-color: #FFE39F;
-    }
-    .el-radio__input.is-checked .el-radio__inner{
-        background-color: orange;
-    }
-    .el-radio__inner:hover{
-        background-color: orangered;
     }
 </style>
 <script>
@@ -73,7 +63,7 @@
         props:{
             second: {
                 type: Number,
-                default: 60
+                default: 5
             }
         },
         data() {
@@ -84,6 +74,7 @@
                     student_id: '',
                     phone_num:  '',
                     radio:      '1',
+                    code:       '',
                 },
                 time: 0,
                 disabled: false
@@ -96,19 +87,13 @@
         },
         methods: {
             start: function () {
-                this.time = this.second;
-                console.log(this.disabled);
-                this.timer();
-            },
-            setDisabled: function (val) {
-                this.disabled = val;
+                    this.time = this.second;
+                    this.timer();
             },
             timer: function () {
                 if (this.time > 0){
                     this.time--;
                     setTimeout(this.timer, 1000);
-                }else {
-                    this.disabled = false;
                 }
             },
             remove_spaces(){
@@ -148,28 +133,27 @@
                         message: '电话号码错误，请重新填写',
                         type: 'warning'
                     });
-                }else if (!code.test(this.form.code)){
+                }else if(this.form.code.length !== 6){
                     this.$message({
                         showClose: true,
                         message: '验证码错误',
                         type: 'warning'
                     });
                 }else {
-                    return false;
+                    return true;
                 }
                 return false;
             },
             onSubmit() {
                 this.remove_spaces();
                 if(this.test()){
-
-
                     this.$http.post('/sign',{
                         name       : this.form.name,
                         grade      : this.form.grade,
                         student_id : this.form.student_id,
                         phone_num  : this.form.phone_num,
                         radio      : this.form.radio,
+                        code       : this.form.radio,
                     }).then(
                         function (response) {
                             var data = response.data;

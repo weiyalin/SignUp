@@ -12,9 +12,9 @@
 </head>
 <body>
     <div id='app'>
+        <div id="starsBox"></div>
         <example></example>
     </div >
-
 </body>
 <script type="text/javascript" src="{{ url('dist/js/manifest.js') }}"></script>
 <script type="text/javascript" src="{{ url('dist/js/vendor.js') }}"></script>
