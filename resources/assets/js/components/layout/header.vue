@@ -13,8 +13,10 @@
         text-align: center;
         font-size: 25px;
         color: white;
-        background-color: #17195f;
+        /*background-color: #17195f;*/
         position: relative;
+        background:url("/dist/img/star.gif");
+        background-size: cover;
     }
     .img_url{
         width: 100px;
@@ -35,7 +37,7 @@
     export default {
         data() {
             return {
-                img_url : '/dist/img/rabit.png',
+                img_url   : '/dist/img/rabit.png',
                 image_url : '/dist/img/moon.png'
             }
         },

@@ -2,16 +2,16 @@
     <div>
         {{ this.change_date()  }}
         <el-form :inline="true">
-            <el-form-item style="width:74%;" class="my_item">
+            <el-form-item style="width:74%;" class="my_item search-item">
                 <el-input style="" v-model="student_id" placeholder="输入学号查找" ></el-input>
             </el-form-item>
-            <el-form-item style="width: 23%; float: right" class="my_item">
+            <el-form-item style="width: 23%; float: right" class="my_item search-item">
                 <el-button class="search-button" type="primary" icon="search" @click="onSearchClick"
                            :loading="searching" style="width:100%;">
                 </el-button>
             </el-form-item>
         </el-form>
-        <div style="width: 100%" v-if="show_meg">
+        <div style="width: 100%; overflow: hidden" v-if="show_meg" class="information">
             <el-row :gutter="20">
                 <el-col class="title" :span="10">姓名</el-col>
                 <el-col :span="14">{{ student.name }}</el-col>
@@ -71,11 +71,14 @@
     .my_submit{
         width: 100%;
     }
+    .search-item{
+        margin-bottom: 0 !important;
+    }
     .el-form-item__content{
         width: 100%;
     }
     .el-row{
-        padding: 20px;
+        padding: 20px 0;
         border-bottom: 1px #74787E solid;
     }
     .el-row:hover{
