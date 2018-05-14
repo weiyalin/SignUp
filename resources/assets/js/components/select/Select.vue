@@ -248,6 +248,18 @@
             },
             onSubmit() {
                 this.reset_remove_spaces();
+
+                if(this.student.sex == '男')
+                    this.student.sex = 1;
+                else if(this.student.sex == '女')
+                    this.student.sex = 0;
+
+                var self = this;
+                this.faculty.forEach(function (value,index) {
+                    if(self.student.faculty == value)
+                        self.student.faculty = index;
+                });
+
                 if(this.reset_test()){
                     this.$http.post('/reset',{
                         name       : this.student.name,
