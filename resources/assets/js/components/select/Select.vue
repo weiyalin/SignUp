@@ -17,16 +17,28 @@
                 <el-col :span="14">{{ student.name }}</el-col>
             </el-row>
             <el-row :gutter="20">
+                <el-col class="title" :span="10">性别</el-col>
+                <el-col :span="14">{{ sex[student.sex] }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col class="title" :span="10">院系</el-col>
+                <el-col :span="14">{{ faculty[student.faculty] }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col class="title" :span="10">专业</el-col>
+                <el-col :span="14">{{ student.profession }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
                 <el-col class="title" :span="10">班级</el-col>
-                <el-col :span="14">{{ student.grade }}</el-col>
+                <el-col :span="14">{{ student.class }}</el-col>
             </el-row>
             <el-row :gutter="20">
                 <el-col class="title" :span="10">电话</el-col>
-                <el-col :span="14">{{ student.phone_num }}</el-col>
+                <el-col :span="14">{{ student.phone }}</el-col>
             </el-row>
             <el-row :gutter="20">
-                <el-col class="title" :span="10">方向</el-col>
-                <el-col :span="14">{{ direction }}</el-col>
+                <el-col class="title" :span="10">QQ</el-col>
+                <el-col :span="14">{{ student.QQ }}</el-col>
             </el-row>
             <el-row :gutter="20">
                 <el-col class="title" :span="10">时间</el-col>
@@ -34,19 +46,48 @@
             </el-row>
             <el-button class="reset_submit" type="primary" @click="reset">修改</el-button>
         </div>
-        <el-form ref="form" :model="student" v-if="show_reset">
+        <el-form ref="form" :model="student" v-if="show_reset" style="margin-top: 23px">
             <el-form-item>
-            <el-input placeholder="姓名" v-model="student.name"></el-input>
-        </el-form-item>
-            <el-form-item>
-                <el-input placeholder="班级" v-model="student.grade"></el-input>
+                <el-input placeholder="姓名" v-model="student.name"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-input placeholder="电话号码" v-model="student.phone_num"></el-input>
+                <el-select v-model="student.sex" placeholder="请选择性别" style="width: 100%">
+                    <el-option label="女" value="0"></el-option>
+                    <el-option label="男" value="1"></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item>
-                <el-radio class="radio my_radio" v-model="student.radio" label="1">开发</el-radio>
-                <el-radio class="radio my_radio my_radio2" v-model="student.radio" label="2">美工</el-radio>
+                <el-select v-model="student.faculty" placeholder="请选择院系" style="width: 100%">
+                    <el-option label="经济与管理学院" value="0"></el-option>
+                    <el-option label="生命科技学院" value="1"></el-option>
+                    <el-option label="机电学院" value="2"></el-option>
+                    <el-option label="食品学院" value="3"></el-option>
+                    <el-option label="动物科技学院" value="4"></el-option>
+                    <el-option label="园艺园林学院" value="5"></el-option>
+                    <el-option label="资源与环境学院" value="6"></el-option>
+                    <el-option label="化学化工学院" value="7"></el-option>
+                    <el-option label="教育科学学院" value="8"></el-option>
+                    <el-option label="艺术学院" value="9"></el-option>
+                    <el-option label="服装学院" value="10"></el-option>
+                    <el-option label="数学科学学院" value="11"></el-option>
+                    <el-option label="外国语学院" value="12"></el-option>
+                    <el-option label="体育学院" value="13"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-input placeholder="专业" v-model="student.profession"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input placeholder="班级" v-model="student.class"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input placeholder="学号" v-model="student.student_id"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input placeholder="电话号码" v-model="student.phone"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input placeholder="QQ号码" v-model="student.QQ"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button class="my_submit" type="primary" @click="onSubmit">修改</el-button>
@@ -55,12 +96,6 @@
     </div>
 </template>
 <style>
-    .my_radio{
-        margin: 0 15%;
-    }
-    .my_radio2{
-        float: right;
-    }
     .my_item{
         margin-right: 0 !important;
     }
@@ -81,9 +116,6 @@
         padding: 20px 0;
         border-bottom: 1px #74787E solid;
     }
-    .el-row:hover{
-        /*border-color: orange;*/
-    }
     .weui-cell{
         width: 100%;
     }
@@ -92,6 +124,24 @@
     export default {
         data() {
             return {
+                sex       :['女','男'],
+                faculty   :[
+                    '经济与管理学院',
+                    '生命科技学院',
+                    '机电学院',
+                    '食品学院',
+                    '动物科技学院',
+                    '园艺园林学院',
+                    '资源与环境学院',
+                    '化学化工学院',
+                    '文法学院',
+                    '教育科学学院',
+                    '艺术学院',
+                    '服装学院',
+                    '数学科学学院',
+                    '外国语学院',
+                    '体育学院'
+                ],
                 show_meg  :false,
                 show_reset:false,
                 student_id: '',
@@ -99,10 +149,13 @@
                 direction : '开发',
                 student   : {
                     name        : '',
-                    grade       : '',
-                    phone_num   : '',
+                    sex         : '',
+                    faculty     : '',
+                    profession  : '',
+                    class       : '',
                     student_id  : '',
-                    radio       : '1',
+                    phone       : '',
+                    QQ          : '',
                     create_time : 0,
                 }
             }
@@ -124,15 +177,6 @@
                 }
                 return false;
             },
-            reset_direction(){
-                if(this.student.radio == 1){
-                    this.direction = '开发';
-                }else if( this.student.radio == 2 ){
-                    this.direction = '美工';
-                }else{
-                    this.direction = '未知';
-                }
-            },
             onSearchClick() {
                 this.searching = true;
                 this.remove_spaces();
@@ -146,11 +190,14 @@
                             if(data.code == 0){
                                 this.show_reset = false;
                                 this.show_meg = true;
+
                                 this.student.name       = data.msg.name;
-                                this.student.grade      = data.msg.grade;
-                                this.student.phone_num  = data.msg.phone_num;
-                                this.student.radio      = data.msg.radio.toString();
-                                this.reset_direction();
+                                this.student.sex        = data.msg.sex;
+                                this.student.faculty    = data.msg.faculty;
+                                this.student.profession = data.msg.profession;
+                                this.student.class      = data.msg.class;
+                                this.student.phone      = data.msg.phone;
+                                this.student.QQ         = data.msg.QQ;
                                 this.student.create_time= data.msg.create_time;
                             } else {
                                 this.$message({
@@ -166,7 +213,10 @@
             },
             reset_remove_spaces(){
                 this.student.name        = this.student.name.trim();
-                this.student.grade       = this.student.grade.trim();
+                this.student.profession  = this.student.profession.trim();
+                this.student.class       = this.student.class.trim();
+                this.student.phone       = this.student.phone.trim();
+                this.student.QQ          = this.student.QQ.trim();
             },
             reset_test(){
                 var reg_name    = /^[\u4E00-\u9FA5]{2,4}$/;
@@ -179,13 +229,13 @@
                         message: '姓名错误，请重新填写',
                         type: 'warning'
                     });
-                }else if(this.student.grade.length < 5 || this.student.grade.length > 10){
+                }else if(this.student.class.length < 5 || this.student.class.length > 10){
                     this.$message({
                         showClose: true,
                         message: '班级错误，请重新填写',
                         type: 'warning'
                     });
-                }else if(!reg_mobile.test(this.student.phone_num) && !reg_phone.test(this.student.phone_num)){
+                }else if(!reg_mobile.test(this.student.phone) && !reg_phone.test(this.student.phone)){
                     this.$message({
                         showClose: true,
                         message: '电话号码错误，请重新填写',
@@ -201,10 +251,13 @@
                 if(this.reset_test()){
                     this.$http.post('/reset',{
                         name       : this.student.name,
-                        grade      : this.student.grade,
+                        sex        : this.student.sex,
+                        faculty    : this.student.faculty,
+                        profession : this.student.profession,
+                        class      : this.student.class,
                         student_id : this.student.student_id,
-                        phone_num  : this.student.phone_num,
-                        radio      : this.student.radio,
+                        phone      : this.student.phone,
+                        QQ         : this.student.QQ
                     }).then(
                         function (response) {
                             var data = response.data;
@@ -214,7 +267,6 @@
                                     message: data.msg,
                                     type: 'success'
                                 });
-                                this.reset_direction();
                                 this.show_reset = false;
                                 this.show_meg   = true;
                             } else {
@@ -251,7 +303,9 @@
                 }
             },
             reset(){
-                this.student.student_id = this.student_id,
+                this.student.sex        = this.sex[this.student.sex];
+                this.student.faculty    = this.faculty[this.student.faculty];
+                this.student.student_id = this.student_id;
                 this.show_meg   = false;
                 this.show_reset = true;
             }
