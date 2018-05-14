@@ -20,12 +20,13 @@
                     <el-option label="园艺园林学院" value="5"></el-option>
                     <el-option label="资源与环境学院" value="6"></el-option>
                     <el-option label="化学化工学院" value="7"></el-option>
-                    <el-option label="教育科学学院" value="8"></el-option>
-                    <el-option label="艺术学院" value="9"></el-option>
-                    <el-option label="服装学院" value="10"></el-option>
-                    <el-option label="数学科学学院" value="11"></el-option>
-                    <el-option label="外国语学院" value="12"></el-option>
-                    <el-option label="体育学院" value="13"></el-option>
+                    <el-option label="文法学院" value="8"></el-option>
+                    <el-option label="教育科学学院" value="9"></el-option>
+                    <el-option label="艺术学院" value="10"></el-option>
+                    <el-option label="服装学院" value="11"></el-option>
+                    <el-option label="数学科学学院" value="12"></el-option>
+                    <el-option label="外国语学院" value="13"></el-option>
+                    <el-option label="体育学院" value="14"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item>
