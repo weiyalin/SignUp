@@ -10,7 +10,7 @@
                     <el-option label="男" value="1"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item>
+            <el-form-item st>
                 <el-select v-model="form.faculty" placeholder="请选择院系" style="width: 100%">
                     <el-option label="经济与管理学院" value="0"></el-option>
                     <el-option label="生命科技学院" value="1"></el-option>
@@ -27,7 +27,9 @@
                     <el-option label="数学科学学院" value="12"></el-option>
                     <el-option label="外国语学院" value="13"></el-option>
                     <el-option label="体育学院" value="14"></el-option>
+                    <el-option label="信息工程学院" value="15"></el-option>
                 </el-select>
+                <div class="open"><span>新科学院暂未开放</span></div>
             </el-form-item>
             <el-form-item>
                 <el-input placeholder="专业" v-model="form.profession"></el-input>
@@ -51,6 +53,19 @@
     </div>
 </template>
 <style>
+    .open{
+        width: 100px;
+        font-size: 12px;
+        color: rgba(0,0,0,0.4);
+        margin: 0 auto;
+        position: relative;
+    }
+    .open > span{
+        text-align: center;
+        position: absolute;
+        top: -7px;
+        display: block;
+    }
     .my_submit{
         width: 100%;
     }

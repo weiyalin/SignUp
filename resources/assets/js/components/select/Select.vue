@@ -73,7 +73,9 @@
                     <el-option label="数学科学学院" value="12"></el-option>
                     <el-option label="外国语学院" value="13"></el-option>
                     <el-option label="体育学院" value="14"></el-option>
+                    <el-option label="信息工程学院" value="15"></el-option>
                 </el-select>
+                <div class="open"><span>新科学院暂未开放</span></div>
             </el-form-item>
             <el-form-item>
                 <el-input placeholder="专业" v-model="student.profession"></el-input>
@@ -141,7 +143,8 @@
                     '服装学院',
                     '数学科学学院',
                     '外国语学院',
-                    '体育学院'
+                    '体育学院',
+                    '信息工程学院'
                 ],
                 show_meg  :false,
                 show_reset:false,
