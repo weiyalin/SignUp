@@ -49,10 +49,22 @@
             <el-form-item>
                 <el-button class="my_submit" type="primary" @click="onSubmit">报名</el-button>
             </el-form-item>
+            <el-form-item>
+                <img :src="img_group" alt="" class="img_group">
+                <div style="text-align: center">
+                    <p style="margin: 0;color: red">
+                        报名后请务必加群<br>
+                        后续相关通知会在群中发布
+                    </p>
+                </div>
+            </el-form-item>
         </el-form>
     </div>
 </template>
 <style>
+    .img_group{
+        width: 100%;
+    }
     .open{
         width: 100px;
         font-size: 12px;
@@ -74,6 +86,7 @@
     export default {
         data() {
             return {
+                img_group : '/dist/img/marchsoft.png',
                 form: {
                     name:       '',
                     sex :       '1',
@@ -149,8 +162,9 @@
                             var data = response.data;
                             if(data.code == 0){
                                 this.$message({
+                                    duration:6000,
                                     showClose: true,
-                                    message: data.msg,
+                                    message: '报名成功! 请扫描下方二维码加群！',
                                     type: 'success'
                                 });
                             } else {
