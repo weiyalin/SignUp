@@ -3,8 +3,8 @@
         <img :src="img_url" alt="" class="img_url">
         <img :src="image_url" alt="" class="image_url">
         <div class="text">
-            <span class="hint" style="margin-top: 12px">三月报名</span>
-            <span class="hint" style="font-size: 10px;">面向2017级</span>
+            <span class="hint" style="margin-top: 11px; height: 33px; line-height: 33px;">三月报名</span>
+            <span class="hint" style="font-size: 10px; height: 16px; line-height: 16px;">面向2017级</span>
         </div>
     </div>
 </template>
