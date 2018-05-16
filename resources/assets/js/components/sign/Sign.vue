@@ -1,5 +1,6 @@
 <template>
     <div>
+        
         <el-form ref="form" :model="form">
             <el-form-item>
                 <el-input placeholder="姓名" v-model="form.name"></el-input>
@@ -47,11 +48,16 @@
                 <el-input placeholder="QQ号码" v-model="form.QQ"></el-input>
             </el-form-item>
             <el-form-item>
+                <p style="margin: 0;color: red">报名费十元，面试后全额退还</p>
+            </el-form-item>
+            
+            <el-form-item>
                 <el-button class="my_submit" type="primary" @click="onSubmit">报名</el-button>
             </el-form-item>
             <el-form-item>
                 <img :src="img_group" alt="" class="img_group">
                 <div style="text-align: center">
+
                     <p style="margin: 0;color: red">
                         报名后请务必加群<br>
                         后续相关通知会在群中发布
@@ -161,18 +167,21 @@
                         function (response) {
                             var data = response.data;
                             if(data.code == 0){
-                                this.$message({
-                                    duration:6000,
-                                    showClose: true,
-                                    message: '报名成功! 请扫描下方二维码加群！',
-                                    type: 'success'
-                                });
-                            } else {
+                                window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
+                                //this.$message({
+                                //    duration:6000,
+                                //    showClose: true,
+                                //    message: '报名成功! 请扫描下方二维码加群！',
+                                //    type: 'success'
+                                //});
+                            } else if(data.code == 1) {
                                 this.$message({
                                     showClose: true,
                                     message: data.msg,
                                     type: 'error'
                                 });
+                            }else if(data.code == 2) {
+                                window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
                             }
                         }
                     )

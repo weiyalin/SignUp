@@ -17,7 +17,6 @@ use  App\Http\Controllers\sms\SmsController;
 class StudentController extends Controller
 {
     public function sign(Request $request){
-
         //return json_encode(['code' => 1, 'msg' => '报名已截止！']);
 
         $name       = trim($request->name);
@@ -40,11 +39,19 @@ class StudentController extends Controller
         $count2 = DB::table("student")
             ->where('phone',$phone)
             ->count();
+        $buy = DB::table('order')->where([
+                'student_id'=>$student_id,
+                'is_buy' => 1
+            ])->count();
         if($count){
+            if(!$buy) {
+                return json_encode(['code' => 2, 'msg' => '未付款，请继续付款']);
+            }
             return json_encode(['code' => 1, 'msg' => '已报名，请不要重复报名']);
         }else if($count2){
             return json_encode(['code' => 1, 'msg' => '电话号码被占用']);
         }
+
 
         $id = DB::table('student')->insertGetId([
             'name'          => $name,
@@ -62,6 +69,8 @@ class StudentController extends Controller
         }
         return json_encode(['code' => 1, 'msg' => '报名失败，请重新报名']);
     }
+
+
     public function search(Request $request){
 
         $student_id = trim($request->student_id);
@@ -72,6 +81,10 @@ class StudentController extends Controller
         $count = DB::table("student")->where('student_id',$student_id)->count();
         if($count){
             $student = DB::table("student")->where('student_id',$student_id)->first();
+            $buy = DB::table("order")->where([
+                    'student_id'=>$student_id,
+                    'is_buy' => 1
+                ])->count();
             return json_encode([
                 'code' => 0,
                 'msg' => [
@@ -82,7 +95,8 @@ class StudentController extends Controller
                     'class'       => $student->class,
                     'phone'       => $student->phone,
                     'QQ'          => $student->QQ,
-                    'create_time' => $student->create_time
+                    'create_time' => $student->create_time,
+                    'is_buy'      => $buy
                 ]
             ]);
         }

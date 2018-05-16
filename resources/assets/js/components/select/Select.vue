@@ -44,6 +44,11 @@
                 <el-col class="title" :span="10">时间</el-col>
                 <el-col :span="14">{{new Date(student.create_time).format('yyyy-MM-dd hh:mm')}}</el-col>
             </el-row>
+            <el-row :gutter="20">
+                <el-col class="title" :span="10">是否付款</el-col>
+                <el-col :span="14"  v-if = "student.is_buy" v-text = '已付款'></el-col>
+                <el-col :span="14"  v-else v-text = '未付款'></el-col>
+            </el-row>
             <el-button class="reset_submit" type="primary" @click="reset">修改</el-button>
         </div>
         <el-form ref="form" :model="student" v-if="show_reset" style="margin-top: 23px">

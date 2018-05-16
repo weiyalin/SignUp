@@ -24,3 +24,9 @@ Route::post('/reset','student\StudentController@reset');
 Route::post('/sms','sms\smsController@code');
 
 Route::any('/ceshi','sms\ceshiSms@aaa');
+
+Route::group(['prefix' => 'alipay'],function() {
+    Route::get('wappay','Alipay\AlipayWapController@alipayWapPay');
+    Route::get('return','Alipay\AlipayWapController@alipayReturn');
+    Route::get('notify','Alipay\AlipayWapController@alipayNotify');
+});
