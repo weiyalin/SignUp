@@ -46,8 +46,8 @@
             </el-row>
             <el-row :gutter="20">
                 <el-col class="title" :span="10">是否付款</el-col>
-                <el-col :span="14"  v-if = "student.is_buy" v-text = '已付款'></el-col>
-                <el-col :span="14"  v-else v-text = '未付款'></el-col>
+                <el-col :span="14"  v-if = "student.is_buy">已付款</el-col>
+                <el-col :span="14"  v-else>未付款</el-col>
             </el-row>
             <el-button class="reset_submit" type="primary" @click="reset">修改</el-button>
         </div>
