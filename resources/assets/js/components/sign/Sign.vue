@@ -48,16 +48,16 @@
                 <el-input placeholder="QQ号码" v-model="form.QQ"></el-input>
             </el-form-item>
             <el-form-item>
-                <p style="margin: 0;color: red">报名费十元，面试后全额退还</p>
+                <div style="text-align: center">
+                    <p style="margin: 0;color: red">报名费十元，面试后全额退还</p>
+                </div>
             </el-form-item>
-            
             <el-form-item>
                 <el-button class="my_submit" type="primary" @click="onSubmit">报名</el-button>
             </el-form-item>
             <el-form-item>
                 <img :src="img_group" alt="" class="img_group">
                 <div style="text-align: center">
-
                     <p style="margin: 0;color: red">
                         报名后请务必加群<br>
                         后续相关通知会在群中发布
