@@ -166,6 +166,7 @@
                     phone       : '',
                     QQ          : '',
                     create_time : 0,
+                    is_buy      : 0
                 }
             }
         },
@@ -208,6 +209,7 @@
                                 this.student.phone      = data.msg.phone;
                                 this.student.QQ         = data.msg.QQ;
                                 this.student.create_time= data.msg.create_time;
+                                this.student.is_buy= data.msg.is_buy;
                             } else {
                                 this.$message({
                                     showClose: true,
