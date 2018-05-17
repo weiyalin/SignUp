@@ -168,12 +168,6 @@
                             var data = response.data;
                             if(data.code == 0){
                                 window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
-                                //this.$message({
-                                //    duration:6000,
-                                //    showClose: true,
-                                //    message: '报名成功! 请扫描下方二维码加群！',
-                                //    type: 'success'
-                                //});
                             } else if(data.code == 1) {
                                 this.$message({
                                     showClose: true,

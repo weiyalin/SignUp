@@ -14,47 +14,51 @@ use DB;
 
 class ExcelController extends Controller
 {
+    const SEX = ['女','男'];
+    const FACULTY = [
+        '经济与管理学院',
+        '生命科技学院',
+        '机电学院',
+        '食品学院',
+        '动物科技学院',
+        '园艺园林学院',
+        '资源与环境学院',
+        '化学化工学院',
+        '文法学院',
+        '教育科学学院',
+        '艺术学院',
+        '服装学院',
+        '数学科学学院',
+        '外国语学院',
+        '体育学院',
+        '信息工程学院'
+    ];
+    const BUY = ['未付款','已付款'];
+
     public function export(){
         $cellData = [
-            ['序号','姓名','班级','学号','电话','方向','报名时间'],
+            ['序号','姓名','性别','学院','专业','班级','学号','电话','QQ','报名时间','是否付款'],
         ];
-        $Data = DB::table("student")->where('radio',1)->get();
+        $Data = DB::table("student")->get();
         foreach ($Data as $student ){
-            $dir = '开发';
+            $count = DB::table("order")->where('student_id',$student->student_id)->where('is_buy',1)->count();
+            if($count >= 1)
+                $count = 1;
             $cellData[] = [
                 $student->id,
                 $student->name,
-                $student->grade,
+                self::SEX[$student->sex],
+                self::FACULTY[$student->faculty],
+                $student->profession,
+                $student->class,
                 $student->student_id,
-                $student->phone_num,
-                $dir,
+                $student->phone,
+                $student->QQ,
                 date('Y-m-d', $student->create_time/1000),
+                self::BUY[$count]
             ];
         }
-        Excel::create('开发新生报名信息',function($excel) use ($cellData){
-            $excel->sheet('score', function($sheet) use ($cellData){
-                $sheet->rows($cellData);
-            });
-        })->export('xls');
-    }
-    public function export2(){
-        $cellData = [
-            ['序号','姓名','班级','学号','电话','方向','报名时间'],
-        ];
-        $Data = DB::table("student")->where('radio',2)->get();
-        foreach ($Data as $student ){
-            $dir = '美工';
-            $cellData[] = [
-                $student->id,
-                $student->name,
-                $student->grade,
-                $student->student_id,
-                $student->phone_num,
-                $dir,
-                date('Y-m-d', $student->create_time/1000),
-            ];
-        }
-        Excel::create('美工新生报名信息',function($excel) use ($cellData){
+        Excel::create('三月报名'.date('Y-m-d-h'),function($excel) use ($cellData){
             $excel->sheet('score', function($sheet) use ($cellData){
                 $sheet->rows($cellData);
             });

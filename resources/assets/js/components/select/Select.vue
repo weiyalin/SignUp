@@ -47,7 +47,9 @@
             <el-row :gutter="20">
                 <el-col class="title" :span="10">是否付款</el-col>
                 <el-col :span="14"  v-if = "student.is_buy">已付款</el-col>
-                <el-col :span="14"  v-else>未付款</el-col>
+                <el-col :span="14"  v-else>
+                    未付款 <el-button type="primary" size="small" @click="pay">去付款</el-button>
+                </el-col>
             </el-row>
             <el-button class="reset_submit" type="primary" @click="reset">修改</el-button>
         </div>
@@ -171,6 +173,9 @@
             }
         },
         methods: {
+            pay(){
+                window.location.href = '/alipay/wappay?phone='+this.student.phone+'&student_id='+this.student.student_id;
+            },
             remove_spaces(){
                 this.student_id  = this.student_id.trim();
             },
