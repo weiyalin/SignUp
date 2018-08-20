@@ -1,6 +1,5 @@
 <template>
-    <div>
-        
+    <div class="inputs">
         <el-form ref="form" :model="form">
             <el-form-item>
                 <el-input placeholder="姓名" v-model="form.name"></el-input>
@@ -11,7 +10,7 @@
                     <el-option label="男" value="1"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item st>
+            <el-form-item>
                 <el-select v-model="form.faculty" placeholder="请选择院系" style="width: 100%">
                     <el-option label="经济与管理学院" value="0"></el-option>
                     <el-option label="生命科技学院" value="1"></el-option>
@@ -55,8 +54,10 @@
             <el-form-item>
                 <el-button class="my_submit" type="primary" @click="onSubmit">报名</el-button>
             </el-form-item>
-            <el-form-item>
+            <el-form-item class="positionimg">
+                <div class="img">
                 <img :src="img_group" alt="" class="img_group">
+                </div>
                 <div style="text-align: center">
                     <p style="margin: 0;color: red">
                         报名后请务必加群<br>
@@ -69,7 +70,8 @@
 </template>
 <style>
     .img_group{
-        width: 100%;
+        /*width: 100%;*/
+        /*margin-left: 19%;*/
     }
     .open{
         width: 100px;
@@ -77,6 +79,15 @@
         color: rgba(0,0,0,0.4);
         margin: 0 auto;
         position: relative;
+    }
+    .positionimg{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .img{
+        display: flex;
+        justify-content: center;
     }
     .open > span{
         text-align: center;
@@ -86,6 +97,41 @@
     }
     .my_submit{
         width: 100%;
+    }
+
+    @media  only screen and (min-width: 500px){
+        .inputs{
+            width: 39%;
+            margin-top: 2%;
+            margin-left: 30%;
+        }
+        .inputs input{
+            height: 40px;
+            font-size: 17px;
+        }
+        .el-form-item{
+            margin-bottom: 41px;
+        }
+        .open > span{
+            width: 225px;
+            margin-top: 10px;
+        }
+        .open{
+            width: 225px;
+            color: red;
+            font-size: 16px;
+        }
+        .el-select-dropdown__item{
+            font-size: 17px;
+            height: 40px;
+        }
+        .el-form-item__content{
+            font-size: 22px;
+        }
+        .my_submit{
+            font-size: 29px;
+            background-color:#c5d4e8;
+        }
     }
 </style>
 <script>
@@ -120,7 +166,7 @@
                 var reg_name    = /^[\u4E00-\u9FA5]{2,5}$/;
                 var reg_id      = /^20\d{8,9}$/;
                 var reg_mobile  = /^1[3|5|7|8]\d{9}$/;
-                var reg_phone    = /^0\d{2,3}-?\d{7,8}$/;
+                var reg_phone   = /^0\d{2,3}-?\d{7,8}$/;
 
                 if(!(reg_name.test(this.form.name))){
                     this.$message({
@@ -153,7 +199,7 @@
             },
             onSubmit() {
                 this.remove_spaces();
-                if(this.test()){
+                // if(this.test()){
                     this.$http.post('/sign',{
                         name       : this.form.name,
                         sex        : this.form.sex,
@@ -167,19 +213,68 @@
                         function (response) {
                             var data = response.data;
                             if(data.code == 0){
-                                window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
-                            } else if(data.code == 1) {
+                               this.postpay()
+                                // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
+                            }else if(data.code == 1) {
                                 this.$message({
                                     showClose: true,
                                     message: data.msg,
                                     type: 'error'
                                 });
                             }else if(data.code == 2) {
-                                window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
+                                this.postpay()
+                                // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
                             }
                         }
                     )
+                // }
+            },
+            postpay(){
+                this.$http.post('wechatpay/getpay',{
+                    student_id : 1,
+                    phone      : 1
+                }).then(
+                    function (response) {
+                        if(response.data.code == 1){
+                            this.sicallpay(response.data.result);
+                        }
+                        else{
+                            alert(response.data.msg);
+                        }
+                    })
+            },
+            sicallpay(result){
+                if(typeof WeixinJSBridge == 'undefined'){
+                    if(document.addEventListener()){
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    }else if(document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady',  onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                    }
+                }else {
+                    this.onBridgeReady(result);
                 }
+
+            },
+            onBridgeReady(result){
+                console.log(result)
+                WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest', {
+                        "appId":result.appId,
+                        "timeStamp":result.timeStamp,
+                        "nonceStr":result.nonceStr,
+                        "package":result.package,
+                        "signType":"MD5",
+                        "paySign":result.paySign
+                    },
+                    function (res) {
+                        if(res.err_msg == "get_brand_wcpay_request:ok"){
+                            alert("恭喜你，支付成功");
+                            this.updateOrder(result.payId);
+                        }
+                    }
+                );
+
             }
         }
     }

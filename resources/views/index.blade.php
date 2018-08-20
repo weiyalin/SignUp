@@ -10,11 +10,14 @@
     <link rel="stylesheet" href="{{ url('dist/css/my_app.css') }}">
     <title>三月报名</title>
 </head>
-<body>
-    <div id='app'>
+<body id="background">
+    <div id='app' class="background">
         <div id="starsBox"></div>
         <example></example>
     </div >
+<style>
+
+</style>
 </body>
 <script type="text/javascript" src="{{ url('dist/js/manifest.js') }}"></script>
 <script type="text/javascript" src="{{ url('dist/js/vendor.js') }}"></script>

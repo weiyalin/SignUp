@@ -3,8 +3,8 @@
         <img :src="img_url" alt="" class="img_url">
         <img :src="image_url" alt="" class="image_url">
         <div class="text">
-            <span class="hint" style="margin-top: 11px; height: 33px; line-height: 33px;">三月报名</span>
-            <span class="hint" style="font-size: 14px; height: 16px; line-height: 16px;">面向2017级</span>
+            <span class="hint marsign" style="margin-top: 11px; height: 33px; line-height: 33px;">三月报名</span>
+            <span class="hint to" style="font-size: 14px; height: 16px; line-height: 16px;">面向2018级</span>
         </div>
     </div>
 </template>
@@ -46,6 +46,30 @@
         width: 100px;
         margin: 0 auto;
     }
+    @media  only screen and (min-width: 500px){
+    .my_header{
+        height: 111px;
+    }
+    #background{
+    background-image: url('/dist/img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 1500px;
+        }
+    .text{
+        font-size: 43px;
+    }
+    .marsign{
+        height: 41px!important;
+        width: 220px;
+    }
+    .to{
+        margin-top: 1%;
+        font-size: 23px!important;
+        width: 125px!important;
+        height: 26px!important;
+    }
+    }
 </style>
 <script>
     export default {
@@ -55,8 +79,6 @@
                 image_url : '/dist/img/moon.png'
             }
         },
-        methods: {
-
-        },
     }
+
 </script>

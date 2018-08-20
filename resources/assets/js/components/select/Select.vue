@@ -2,10 +2,10 @@
     <div>
         {{ this.change_date()  }}
         <el-form :inline="true">
-            <el-form-item style="width:74%;" class="my_item search-item">
-                <el-input style="" v-model="student_id" placeholder="输入学号查找" ></el-input>
+            <el-form-item style="width:74%;" class="my_item search-item searchnum">
+                <el-input style="" v-model="student_id" placeholder="输入学号查找" class="searinputs" ></el-input>
             </el-form-item>
-            <el-form-item style="width: 23%; float: right" class="my_item search-item">
+            <el-form-item style="width: 23%; float: right" class="my_item search-item gosear">
                 <el-button class="search-button" type="primary" icon="search" @click="onSearchClick"
                            :loading="searching" style="width:100%;">
                 </el-button>
@@ -45,7 +45,7 @@
                 <el-col :span="14">{{new Date(student.create_time).format('yyyy-MM-dd hh:mm')}}</el-col>
             </el-row>
             <el-row :gutter="20">
-                <el-col class="title" :span="10">是否付款</el-col>
+                <el-col class="title ispay" :span="10">是否付款</el-col>
                 <el-col :span="14"  v-if = "student.is_buy">已付款</el-col>
                 <el-col :span="14"  v-else>
                     未付款 <el-button type="primary" size="small" @click="pay">去付款</el-button>
@@ -53,7 +53,7 @@
             </el-row>
             <el-button class="reset_submit" type="primary" @click="reset">修改</el-button>
         </div>
-        <el-form ref="form" :model="student" v-if="show_reset" style="margin-top: 23px">
+        <el-form  class="bigform" ref="form" :model="student" v-if="show_reset" style="margin-top: 23px">
             <el-form-item>
                 <el-input placeholder="姓名" v-model="student.name"></el-input>
             </el-form-item>
@@ -82,7 +82,7 @@
                     <el-option label="体育学院" value="14"></el-option>
                     <el-option label="信息工程学院" value="15"></el-option>
                 </el-select>
-                <div class="open"><span>新科学院暂未开放</span></div>
+                <div class="open opens"><span>新科学院暂未开放</span></div>
             </el-form-item>
             <el-form-item>
                 <el-input placeholder="专业" v-model="student.profession"></el-input>
@@ -106,9 +106,15 @@
     </div>
 </template>
 <style>
-    .my_item{
-        margin-right: 0 !important;
-    }
+      @media (min-width: 200px) and (max-width: 499px) {
+          .my_item{
+              margin-right: 0 !important;
+          }
+
+      }
+      .big{
+          height: 1500px;
+      }
     .reset_submit{
         margin-top: 20px;
         width: 100%;
@@ -128,6 +134,55 @@
     }
     .weui-cell{
         width: 100%;
+    }
+      @media  only screen and (min-width: 500px){
+        .searchnum{
+            width: 18% !important;
+            margin-left: 28%;
+        }
+        .gosear{
+            margin-right: 26% !important;
+            width: 14% !important;
+        }
+        .el-input__inner{
+            height: 50px;
+        }
+        .searinputs{
+            font-size: 17px!important;
+        }
+        .el-button--primary{
+            width: 100px;
+            height: 44px;
+        }
+        .information{
+            color: #fff;
+            width: 52% !important;
+            margin-left: 33%;
+            margin-top: 3%;
+
+        }
+        .reset_submit{
+            margin-left: 25%;
+        }
+        .el-row{
+            width: 67%;
+        }
+        .el-col{
+            padding-left: 73px;
+        }
+        .ispay{
+            margin-top: 3%;
+        }
+        .bigform{
+            width: 40%;
+            margin-left: 30%;
+        }
+        .opens{
+            margin-top: -1%;
+            color: red;
+            height: 6px;
+            text-align: center;
+        }
     }
 </style>
 <script>
@@ -153,8 +208,8 @@
                     '体育学院',
                     '信息工程学院'
                 ],
-                show_meg  :false,
-                show_reset:false,
+                show_meg  : false,
+                show_reset: false,
                 student_id: '',
                 searching : false,
                 direction : '开发',
@@ -174,7 +229,65 @@
         },
         methods: {
             pay(){
-                window.location.href = '/alipay/wappay?phone='+this.student.phone+'&student_id='+this.student.student_id;
+                console.log(this.student_id+this.student.phone);
+                this.$http.post('wechatpay/getpay',{
+                    student_id : this.student_id,
+                    phone      : this.student.phone
+                }).then(
+                    function (response) {
+                        if(response.data.code == 1){
+                            this.callpay(response.data.result);
+                        }else{
+                            alert(response.data.msg);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                // window.location.href = '/wechatpay/getpay?phone='+this.student.phone+'&student_id='+this.student.student_id;
+            },
+            callpay(result){
+                if (typeof WeixinJSBridge == "undefined"){
+                    if( document.addEventListener ){
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    }else if (document.attachEvent){
+                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                    }
+                }else{
+                    this.onBridgeReady(result);
+                }
+            },
+            onBridgeReady(result){
+                this.updateOrder(result.payId);
+                WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest', {
+                          "appId":result.appId,
+                          "timeStamp":result.timeStamp,
+                          "nonceStr":result.nonceStr,
+                          "package":result.package,
+                          "signType":"MD5",
+                          "paySign":result.paySign
+                    },
+                    function (res) {
+                        if(res.err_msg == "get_brand_wcpay_request:ok"){
+                            alert("恭喜你，支付成功");
+                            this.updateOrder(result.payId);
+                        }
+                    }
+                );
+            },
+            updateOrder(id){
+                var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                axios.post('/wechatpay/updateOrder', {
+                    id : id,
+                    _token:token
+                }).then(function (response) {
+                        alert(response.data.result);
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
             },
             remove_spaces(){
                 this.student_id  = this.student_id.trim();
@@ -202,10 +315,9 @@
                         function (response) {
                             var data = response.data;
                             this.searching = false;
-                            if(data.code == 0){
+                            if(data.code == 1){
                                 this.show_reset = false;
                                 this.show_meg = true;
-
                                 this.student.name       = data.msg.name;
                                 this.student.sex        = data.msg.sex;
                                 this.student.faculty    = data.msg.faculty;
@@ -237,7 +349,7 @@
             reset_test(){
                 var reg_name    = /^[\u4E00-\u9FA5]{2,4}$/;
                 var reg_mobile  = /^1[3|5|8]\d{9}$/;
-                var reg_phone    = /^0\d{2,3}-?\d{7,8}$/;
+                var reg_phone   = /^0\d{2,3}-?\d{7,8}$/;
 
                 if(!(reg_name.test(this.student.name))){
                     this.$message({
@@ -289,7 +401,7 @@
                     }).then(
                         function (response) {
                             var data = response.data;
-                            if(data.code == 0){
+                            if(data.code == 1){
                                 this.$message({
                                     showClose: true,
                                     message: data.msg,

@@ -9,9 +9,9 @@
 namespace App\Http\Controllers\excel;
 
 use App\Http\Controllers\Controller;
+use App\Model\StudentDatabase;
+use App\Model\OrderDatabase;
 use Excel;
-use DB;
-
 class ExcelController extends Controller
 {
     const SEX = ['女','男'];
@@ -39,24 +39,24 @@ class ExcelController extends Controller
         $cellData = [
             ['序号','姓名','性别','学院','专业','班级','学号','电话','QQ','报名时间','是否付款'],
         ];
-        $Data = DB::table("student")->get();
+        $Data = StudentDatabase::seallstudent();
         foreach ($Data as $student ){
-            $count = DB::table("order")->where('student_id',$student->student_id)->where('is_buy',1)->count();
-            if($count >= 1)
-                $count = 1;
-            $cellData[] = [
-                $student->id,
-                $student->name,
-                self::SEX[$student->sex],
-                self::FACULTY[$student->faculty],
-                $student->profession,
-                $student->class,
-                $student->student_id,
-                $student->phone,
-                $student->QQ,
-                date('Y-m-d', $student->create_time/1000),
-                self::BUY[$count]
-            ];
+              $count = OrderDatabase::countstuorder($student->student_id);
+              if($count >= 1)
+                    $count = 1;
+                    $cellData[] = [
+                    $student->id,
+                    $student->name,
+                    self::SEX[$student->sex],
+                    self::FACULTY[$student->faculty],
+                    $student->profession,
+                    $student->class,
+                    $student->student_id,
+                    $student->phone,
+                    $student->QQ,
+                    date('Y-m-d', $student->create_time/1000),
+                    self::BUY[$count]
+                ];
         }
         Excel::create('三月报名'.date('Y-m-d-h'),function($excel) use ($cellData){
             $excel->sheet('score', function($sheet) use ($cellData){
