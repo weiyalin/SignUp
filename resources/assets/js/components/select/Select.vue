@@ -259,7 +259,6 @@
                 }
             },
             onBridgeReady(result){
-                this.updateOrder(result.payId);
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', {
                           "appId":result.appId,
@@ -315,7 +314,7 @@
                         function (response) {
                             var data = response.data;
                             this.searching = false;
-                            if(data.code == 1){
+                            if(data.code == 0){
                                 this.show_reset = false;
                                 this.show_meg = true;
                                 this.student.name       = data.msg.name;
@@ -401,7 +400,7 @@
                     }).then(
                         function (response) {
                             var data = response.data;
-                            if(data.code == 1){
+                            if(data.code == 0){
                                 this.$message({
                                     showClose: true,
                                     message: data.msg,

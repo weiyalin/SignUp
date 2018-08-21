@@ -199,7 +199,7 @@
             },
             onSubmit() {
                 this.remove_spaces();
-                // if(this.test()){
+                if(this.test()){
                     this.$http.post('/sign',{
                         name       : this.form.name,
                         sex        : this.form.sex,
@@ -227,7 +227,7 @@
                             }
                         }
                     )
-                // }
+                }
             },
             postpay(){
                 this.$http.post('wechatpay/getpay',{
@@ -257,7 +257,6 @@
 
             },
             onBridgeReady(result){
-                console.log(result)
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', {
                         "appId":result.appId,

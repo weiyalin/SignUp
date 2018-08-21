@@ -67,7 +67,7 @@ class StudentDatabase extends Model
             $isstudeorder = OrderDatabase::acrstuidseorder($student_id);
             $student = DB::table("student")->where('student_id',$student_id)->first();
             return json_encode([
-                'code' => 1,
+                'code' => 0,
                 'msg' => [
                     'name'        => $student->name,
                     'sex'         => $student->sex,
@@ -106,9 +106,9 @@ class StudentDatabase extends Model
                'update_time'   => $updatetime
            ]);
         if($count){
-            return  json_encode(['code' => 1, 'msg' => '修改成功']);
+            return  json_encode(['code' => 0, 'msg' => '修改成功']);
         }else{
-            return  json_encode(['code' => 0, 'msg' => '修改失败']);
+            return  json_encode(['code' => 1, 'msg' => '修改失败']);
         }
     }
 
