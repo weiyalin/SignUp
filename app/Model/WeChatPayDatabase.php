@@ -3,6 +3,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 class WeChatPayDatabase  extends Model
 {
     /**
@@ -61,6 +63,7 @@ class WeChatPayDatabase  extends Model
    //根据订单号，修改学生的支付状态
     public static function updateorstatus($out_trade_no)
     {
+        Log::info('1111111111');
         DB::table('wechatpay')->where('out_trade_no',$out_trade_no)->update([
             'is_pay'=>1,
             'updated_time' => time()
@@ -73,6 +76,7 @@ class WeChatPayDatabase  extends Model
     //根据 “订单ID” ，去更新=>学生已交费
     public static function updateOrders($oederid)
     {
+        Log::info('222222222222');
         $result = DB::table('wechatpay')
             ->where('id',$oederid)
             ->update([

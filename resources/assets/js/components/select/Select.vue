@@ -283,7 +283,7 @@
                     },
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
-                            alert("恭喜你，报名成功");
+                            alert("恭喜你，报名成功"+result.payId);
                             this.updateOrder(result.payId);
                         }
                     }
