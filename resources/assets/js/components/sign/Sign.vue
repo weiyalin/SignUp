@@ -69,10 +69,6 @@
     </div>
 </template>
 <style>
-    .img_group{
-        /*width: 100%;*/
-        /*margin-left: 19%;*/
-    }
     .open{
         width: 100px;
         font-size: 12px;
@@ -149,6 +145,7 @@
                     phone:  '',
                     QQ:         '',
                 },
+                pay_ways : 0,
                 time: 0,
                 disabled: false
             }
@@ -213,7 +210,7 @@
                         function (response) {
                             var data = response.data;
                             if(data.code == 0){
-                               this.postpay()
+                               this.chosepay()
                                 // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
                             }else if(data.code == 1) {
                                 this.$message({
@@ -222,17 +219,25 @@
                                     type: 'error'
                                 });
                             }else if(data.code == 2) {
-                                this.postpay()
+                                this.chosepay()
                                 // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
                             }
                         }
                     )
                 }
             },
+            chosepay(){
+                if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                    this.postpay();
+                } else {
+                    this.pay_ways = 1;
+                    window.location.href = '/alipay/wappay?phone='+this.this.form.phone+'&student_id='+this.form.student_id+'&pay_ways='+this.pay_ways;
+                }
+            },
             postpay(){
                 this.$http.post('wechatpay/getpay',{
-                    student_id : 1,
-                    phone      : 1
+                    student_id : this.form.student_id,
+                    phone      : this.form.phone
                 }).then(
                     function (response) {
                         if(response.data.code == 1){
@@ -273,7 +278,6 @@
                         }
                     }
                 );
-
             }
         }
     }

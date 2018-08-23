@@ -1,41 +1,56 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ztfxhld520
- * Date: 2018/8/10
- * Time: 15:31
- */
-
 namespace App\Model;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-
 class StudentDatabase extends Model
 {
+    /**
+     * @return mixed
+     */
     //查询全部学生的信息
     public static function seallstudent()
     {
         $allstuinma = DB::table('student')->get();
         return $allstuinma;
     }
+    /**
+     * @param $student_id
+     * @return mixed
+     */
     //根据学生ID匹配查询
     public static function acordstuidse($student_id)
     {
         $count = DB::table('student')->where('student_id',$student_id)->count();
         return $count;
     }
+    /**
+     * @param $phone
+     * @return mixed
+     */
     //根据学生Phone匹配查询
     public static function acordstuphose($phone)
     {
         $count = DB::table('student')->where('phone',$phone)->count();
         return $count;
     }
+    /**
+     * @param $name
+     * @param $sex
+     * @param $faculty
+     * @param $profession
+     * @param $class
+     * @param $student_id
+     * @param $phone
+     * @param $QQ
+     * @return string
+     */
     //添加新学生信息
     public static function insertstudent($name,$sex,$faculty,$profession,$class,$student_id,$phone,$QQ)
     {
         $acordstuidct = StudentDatabase::acordstuidse($student_id);
         $acordstuphoe = StudentDatabase::acordstuphose($phone);
-        $isstudeorder = OrderDatabase::acrstuidseorder($student_id);
+        $isstudeorder = WeChatPayDatabase::acstuseorder($student_id);
         if($acordstuidct){
             if(!$isstudeorder){
                 return json_encode(['code' => 2, 'msg' => '未付款，请继续付款']);
@@ -61,10 +76,14 @@ class StudentDatabase extends Model
         }
         return json_encode(['code' => 1, 'msg' => '报名失败，请重新报名']);
     }
+    /**
+     * @param $student_id
+     * @return string
+     */
     //通过学生ID查询第一个学生的信息
     public static function sefirststu($student_id)
     {
-            $isstudeorder = OrderDatabase::acrstuidseorder($student_id);
+            $isstudeorder = WeChatPayDatabase::acstuseorder($student_id);  //查学生是否已经交费
             $student = DB::table("student")->where('student_id',$student_id)->first();
             return json_encode([
                 'code' => 0,
@@ -81,6 +100,11 @@ class StudentDatabase extends Model
                 ]
             ]);
     }
+    /**
+     * @param $student_id
+     * @param $phone
+     * @return mixed
+     */
     //根据手机号和学生ID，,反查询，判断手机号是否被占用
     public static function acstuidsephon($student_id,$phone)
     {
@@ -89,6 +113,17 @@ class StudentDatabase extends Model
              ->where('phone',$phone)->count();
        return $count;
     }
+    /**
+     * @param $student_id
+     * @param $name
+     * @param $sex
+     * @param $faculty
+     * @param $profession
+     * @param $class
+     * @param $phone
+     * @param $QQ
+     * @return string
+     */
     //修改学生的信息
     public static function updatestuinma($student_id,$name,$sex,$faculty,$profession,$class,$phone,$QQ)
     {
@@ -111,6 +146,4 @@ class StudentDatabase extends Model
             return  json_encode(['code' => 1, 'msg' => '修改失败']);
         }
     }
-
-
 }

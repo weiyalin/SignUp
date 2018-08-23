@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{ this.change_date()  }}
+        {{ this.change_date() }}
         <el-form :inline="true">
             <el-form-item style="width:74%;" class="my_item search-item searchnum">
                 <el-input style="" v-model="student_id" placeholder="输入学号查找" class="searinputs" ></el-input>
@@ -46,9 +46,9 @@
             </el-row>
             <el-row :gutter="20">
                 <el-col class="title ispay" :span="10">是否付款</el-col>
-                <el-col :span="14"  v-if = "student.is_buy">已付款</el-col>
+                <el-col :span="14"  v-if = "student.is_pay">已付款</el-col>
                 <el-col :span="14"  v-else>
-                    未付款 <el-button type="primary" size="small" @click="pay">去付款</el-button>
+                    未付款 <el-button type="primary" size="small" @click="chosepay">去付款</el-button>
                 </el-col>
             </el-row>
             <el-button class="reset_submit" type="primary" @click="reset">修改</el-button>
@@ -105,6 +105,7 @@
         </el-form>
     </div>
 </template>
+
 <style>
       @media (min-width: 200px) and (max-width: 499px) {
           .my_item{
@@ -208,6 +209,8 @@
                     '体育学院',
                     '信息工程学院'
                 ],
+                pay_ways : 0,
+                is_pc     : false,
                 show_meg  : false,
                 show_reset: false,
                 student_id: '',
@@ -223,16 +226,25 @@
                     phone       : '',
                     QQ          : '',
                     create_time : 0,
-                    is_buy      : 0
+                    is_pay      : 0
                 }
             }
         },
         methods: {
+            chosepay(){
+                if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                    this.pay();
+                } else {
+                    this.pay_ways = 1;
+                    window.location.href = '/alipay/wappay?phone='+this.student.phone+'&student_id='+this.student_id+'&pay_ways='+this.pay_ways;
+                }
+            },
             pay(){
                 console.log(this.student_id+this.student.phone);
                 this.$http.post('wechatpay/getpay',{
                     student_id : this.student_id,
-                    phone      : this.student.phone
+                    phone      : this.student.phone,
+
                 }).then(
                     function (response) {
                         if(response.data.code == 1){
@@ -244,7 +256,6 @@
                     .catch(function (error) {
                         console.log(error);
                     });
-                // window.location.href = '/wechatpay/getpay?phone='+this.student.phone+'&student_id='+this.student.student_id;
             },
             callpay(result){
                 if (typeof WeixinJSBridge == "undefined"){
@@ -325,7 +336,7 @@
                                 this.student.phone      = data.msg.phone;
                                 this.student.QQ         = data.msg.QQ;
                                 this.student.create_time= data.msg.create_time;
-                                this.student.is_buy= data.msg.is_buy;
+                                this.student.is_pay     = data.msg.is_pay;
                             } else {
                                 this.$message({
                                     showClose: true,

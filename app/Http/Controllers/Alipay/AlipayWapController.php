@@ -5,17 +5,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\libs\alipay\wappay\buildermodel\AlipayTradeWapPayContentBuilder;
 use App\libs\alipay\wappay\service\AlipayTradeService;
-use App\Model\OrderDatabase;
+use App\Model\WeChatPayDatabase;
 class AlipayWapController extends Controller {
 
     //学生支付，调用支付宝接口
     public function alipayWapPay(Request $request){
         $phone = $request->phone;
         $student_id = $request->student_id;
-        $out_trade_no = 'zan' . uniqid();      //
-        OrderDatabase::insertsigninma($phone,$out_trade_no,$student_id);
+        $pay_ways   = $request->pay_ways;
+        $out_trade_no = 'zan' . uniqid();
+        WeChatPayDatabase::insertstuorder($student_id,$phone,$out_trade_no,$pay_ways);
         $subject = '报名费';
-        $total_amount = 10;
+        $total_amount = 0.01;
         $body = '报名费用';
         $timeout_express="1m";
         $payRequestBuilder = new AlipayTradeWapPayContentBuilder();
@@ -36,16 +37,17 @@ class AlipayWapController extends Controller {
         $result = $alipaySevice->check($arr);
         if(!$result){                                     //这里的对公钥的判定不正确，故加！
             if($alipaySevice->appid == $arr['app_id']){   //
-                if($arr['out_trade_no'] != null){
-                    $order = OrderDatabase::acordoutranse($arr);
+                $out_trade_no = $arr['out_trade_no'];
+                if($out_trade_no != null){
+                    $order = WeChatPayDatabase::acordoutranse($out_trade_no);
                     if($order){
-                        OrderDatabase::updatestupayed($arr);
-                        return '<br><br><br><br><br><br><h1 style="text-align:center;">已报名成功，请关注后续通知.<br>一定加QQ群( 619589995 )</h1>';
+                        WeChatPayDatabase::updateorstatus($out_trade_no);
+                        return view('index')->with('paystatus','已报名成功，请关注后续通知。一定加QQ群( 619589995 )');
                     }
                 }
-                echo '验证成功';
+                return view('index')->with('paystatus','支付成功');
             }else{
-                echo '验证失败';
+                return view('index')->with('paystatus','支付失败');
             }
         }
     }
@@ -55,10 +57,11 @@ class AlipayWapController extends Controller {
         $status = $_POST['trade_status'];                    //
         if($status == 'TRADE_SUCCESS' || $status == 'TRADE_FINISHED'){ //
             //交易成功
-            if($arr['out_trade_no'] != null){
-                $order = OrderDatabase::acordoutranse($arr);
+            $out_trade_no = $arr['out_trade_no'];
+            if($out_trade_no != null){
+                $order = WeChatPayDatabase::acordoutranse($out_trade_no);
                 if($order){
-                    OrderDatabase::updatestupayed($arr);
+                    WeChatPayDatabase::updateorstatus($out_trade_no);
                 }
             }
             echo 'success';

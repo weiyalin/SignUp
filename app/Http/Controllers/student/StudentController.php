@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: weiyalin
- * Date: 2017/9/8
- * Time: 11:03
- */
-
 namespace App\Http\Controllers\student;
 
 use App\Http\Controllers\Controller;
@@ -13,10 +6,12 @@ use App\Model\StudentDatabase;
 use Illuminate\Http\Request;
 class StudentController extends Controller
 {
-    //学生报名
+    /**
+     * @param Request $request
+     * @return string
+     */
+    //学生报名,把信息放入数据库
     public function sign(Request $request){
-        return json_encode(['code' => 0, 'msg' => '请将数据填写完整']);
-        //return json_encode(['code' => 1, 'msg' => '报名已截止！']);
         $name       = trim($request->name);
         $sex        = trim($request->sex);
         $faculty    = trim($request->faculty);
@@ -33,7 +28,10 @@ class StudentController extends Controller
         $stuid = StudentDatabase::insertstudent($name,$sex,$faculty,$profession,$class,$student_id,$phone,$QQ);
         return $stuid;
     }
-
+    /**
+     * @param Request $request
+     * @return string
+     */
     //根据学生ID查找学生信息
     public function search(Request $request){
 
@@ -49,6 +47,10 @@ class StudentController extends Controller
         return $student;
 
     }
+    /**
+     * @param Request $request
+     * @return string
+     */
     //修改学生的信息
     public function reset(Request $request){
 

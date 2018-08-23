@@ -15,9 +15,11 @@
         <div id="starsBox"></div>
         <example></example>
     </div >
-<style>
-
-</style>
+    @if(isset($data))
+       <script>
+           alert("<?php echo $data?>");
+       </script>;
+    @endif
 </body>
 <script type="text/javascript" src="{{ url('dist/js/manifest.js') }}"></script>
 <script type="text/javascript" src="{{ url('dist/js/vendor.js') }}"></script>

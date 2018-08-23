@@ -11,6 +11,7 @@ namespace App\Http\Controllers\excel;
 use App\Http\Controllers\Controller;
 use App\Model\StudentDatabase;
 use App\Model\OrderDatabase;
+use APP\Model\WeChatPayDatabase;
 use Excel;
 class ExcelController extends Controller
 {
@@ -41,7 +42,12 @@ class ExcelController extends Controller
         ];
         $Data = StudentDatabase::seallstudent();
         foreach ($Data as $student ){
-              $count = OrderDatabase::countstuorder($student->student_id);
+              $count = WeChatPayDatabase::wecotstuorder($student->student_id);
+              if($student->pay_ways == 0){
+                  $student->pay_ways == "微信支付";
+              }else{
+                  $student->pay_ways == "支付宝支付";
+              }
               if($count >= 1)
                     $count = 1;
                     $cellData[] = [
@@ -54,6 +60,7 @@ class ExcelController extends Controller
                     $student->student_id,
                     $student->phone,
                     $student->QQ,
+                    $student->pay_ways,
                     date('Y-m-d', $student->create_time/1000),
                     self::BUY[$count]
                 ];
