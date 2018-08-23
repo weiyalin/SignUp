@@ -20,7 +20,6 @@ class WechatPayController  extends Controller
         $out_trade_no = time();                                        //平台内部订单号
         $phone        = $request->phone;                               //学生电话
         $way_pays     = $request->pay_ways;                            //学生的支付方式
-        return $way_pays;
         $student_id   = $request->student_id;                          //学生学号
         $key          = weixinpayconfig::$key;                         //自己设置的微信key
         $appid        = weixinpayconfig::$appid;                       //微信公众号appid
