@@ -232,9 +232,10 @@
         },
         methods: {
             chosepay(){
-                if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                var ua = window.navigator.userAgent.toLowerCase();
+                if (ua.match(/MicroMessenger/i) == 'micromessenger') {
                     this.pay();
-                } else {
+                }else {
                     this.pay_ways = 1;
                     window.location.href = '/alipay/wappay?phone='+this.student.phone+'&student_id='+this.student_id+'&pay_ways='+this.pay_ways;
                 }
@@ -258,6 +259,7 @@
                     });
             },
             callpay(result){
+                console.log(result.payId);
                 if (typeof WeixinJSBridge == "undefined"){
                     if( document.addEventListener ){
                         document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
@@ -281,23 +283,16 @@
                     },
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
-                            alert("恭喜你，支付成功");
+                            alert("恭喜你，报名成功");
                             this.updateOrder(result.payId);
                         }
                     }
                 );
             },
             updateOrder(id){
-                var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                axios.post('/wechatpay/updateOrder', {
+                this.$http.post('/wechatpay/updateOrder', {
                     id : id,
-                    _token:token
-                }).then(function (response) {
-                        alert(response.data.result);
-                    })
-                    .catch(function (error) {
-                        alert(error);
-                    });
+                })
             },
             remove_spaces(){
                 this.student_id  = this.student_id.trim();

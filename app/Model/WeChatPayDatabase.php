@@ -29,7 +29,7 @@ class WeChatPayDatabase  extends Model
               'student_id'   => $student_id,
               'phone'        => $phone,
               'out_trade_no' => $out_trade_no,
-              'is_pay'       => '0',
+              'is_pay'       => 0,
               'pay_ways'     => $pay_ways,
               'created_time' => time()
                     ]);

@@ -210,8 +210,8 @@
                         function (response) {
                             var data = response.data;
                             if(data.code == 0){
+                               alert(data.msg);
                                this.chosepay()
-                                // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
                             }else if(data.code == 1) {
                                 this.$message({
                                     showClose: true,
@@ -219,19 +219,20 @@
                                     type: 'error'
                                 });
                             }else if(data.code == 2) {
+                                alert(data.msg);
                                 this.chosepay()
-                                // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id;
                             }
                         }
                     )
                 }
             },
             chosepay(){
-                if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                var ua = window.navigator.userAgent.toLowerCase();
+                if (ua.match(/MicroMessenger/i) == 'micromessenger') {
                     this.postpay();
-                } else {
+                }else {
                     this.pay_ways = 1;
-                    window.location.href = '/alipay/wappay?phone='+this.this.form.phone+'&student_id='+this.form.student_id+'&pay_ways='+this.pay_ways;
+                    window.location.href = '/alipay/wappay?phone='+this.student.phone+'&student_id='+this.student_id+'&pay_ways='+this.pay_ways;
                 }
             },
             postpay(){

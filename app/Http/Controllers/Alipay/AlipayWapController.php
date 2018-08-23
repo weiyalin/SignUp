@@ -17,7 +17,7 @@ class AlipayWapController extends Controller {
         WeChatPayDatabase::insertstuorder($student_id,$phone,$out_trade_no,$pay_ways);
         $subject = '报名费';
         $total_amount = 0.01;
-        $body = '报名费用';
+        $body = '三月报名费用';
         $timeout_express="1m";
         $payRequestBuilder = new AlipayTradeWapPayContentBuilder();
         $payRequestBuilder->setBody($body);

@@ -34,7 +34,6 @@ Route::group(['prefix' => 'alipay'],function() {
     Route::get('return','Alipay\AlipayWapController@alipayReturn');     //
     Route::get('notify','Alipay\AlipayWapController@alipayNotify');     //
 });
-
 //微信支付
 Route::get('getopenid','Alipay\WechatPayController@index');             //刚进入页面,获取用户的oppenid
 Route::group(['prefix' => 'wechatpay'],function () {

@@ -19,7 +19,7 @@ class WechatPayController  extends Controller
         $total_fee    = 1;                                             //付款金额，单位为分
         $out_trade_no = time();                                        //平台内部订单号
         $phone        = $request->phone;                               //学生电话
-        $way_pays     = $request->pay_ways;                            //学生的支付方式
+        $pay_ways     = $request->pay_ways;                            //学生的支付方式
         $student_id   = $request->student_id;                          //学生学号
         $key          = weixinpayconfig::$key;                         //自己设置的微信key
         $appid        = weixinpayconfig::$appid;                       //微信公众号appid
@@ -51,7 +51,7 @@ class WechatPayController  extends Controller
         ];
         $this->app        = new Application($config);
         $payment          = $this->app->payment;
-        $insert_id        = WeChatPayDatabase::insertstuorder($student_id,$phone,$out_trade_no,$way_pays); //把订单信息存入数据
+        $insert_id        = WeChatPayDatabase::insertstuorder($student_id,$phone,$out_trade_no,$pay_ways); //把订单信息存入数据
         if($insert_id){                                                //如果订单存入成功
             $attributes        = [
                 'body'         => weixinpayconfig::$body,              //支付后的支付订单信息
@@ -86,8 +86,7 @@ class WechatPayController  extends Controller
      */
     function updateOrder(Request $request)
     {
-        $result = WeChatPayDatabase::updateOrders($request->id);
-        return $this->responseToJson(1,'更新结果',$result);
+         WeChatPayDatabase::updateOrders($request->id);
     }
 
     /**数据返回JSON格式
