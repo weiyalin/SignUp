@@ -244,7 +244,7 @@
                 this.$http.post('wechatpay/getpay',{
                     student_id : this.student_id,
                     phone      : this.student.phone,
-
+                    pay_ways   : this.pay_ways,
                 }).then(
                     function (response) {
                         if(response.data.code == 1){
