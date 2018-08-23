@@ -272,6 +272,7 @@
                 }
             },
             onBridgeReady(result){
+                let self = this;
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', {
                           "appId":result.appId,
@@ -283,8 +284,10 @@
                     },
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
-                            alert("恭喜你，报名成功"+result.payId);
-                            this.updateOrder(result.payId);
+                            alert("恭喜你，支付成功"+result.payId);
+                            self.updateOrder(result.payId);
+                        }else {
+                            alert("支付失败");
                         }
                     }
                 );
