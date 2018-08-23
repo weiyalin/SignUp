@@ -248,6 +248,7 @@
                     pay_ways   : this.pay_ways,
                 }).then(
                     function (response) {
+                        console.log(response);
                         if(response.data.code == 1){
                             this.callpay(response.data.result);
                         }else{
@@ -259,7 +260,6 @@
                     });
             },
             callpay(result){
-                console.log(result.payId);
                 if (typeof WeixinJSBridge == "undefined"){
                     if( document.addEventListener ){
                         document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
@@ -289,9 +289,9 @@
                     }
                 );
             },
-            updateOrder(id){
+            updateOrder(orderid){
                 this.$http.post('/wechatpay/updateOrder', {
-                    id : id,
+                    id : orderid,
                 })
             },
             remove_spaces(){

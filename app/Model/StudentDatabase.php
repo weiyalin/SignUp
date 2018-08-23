@@ -96,7 +96,7 @@ class StudentDatabase extends Model
                     'phone'       => $student->phone,
                     'QQ'          => $student->QQ,
                     'create_time' => $student->create_time,
-                    'is_buy'      => $isstudeorder
+                    'is_pay'      => $isstudeorder
                 ]
             ]);
     }
