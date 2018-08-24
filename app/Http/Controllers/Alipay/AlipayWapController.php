@@ -42,12 +42,12 @@ class AlipayWapController extends Controller {
                     $order = WeChatPayDatabase::acordoutranse($out_trade_no);
                     if($order){
                         WeChatPayDatabase::updateorstatus($out_trade_no);
-                        return  redirect('http://lishanlei.cn/getopenid#/select/支付成功，后续关注通知。一定要加群哦！');
+                        return  redirect('http://lishanlei.cn/#/select/支付成功，后续关注通知。一定要加群哦！');
                     }
                 }
-                return  redirect('http://lishanlei.cn/getopenid#/select/支付成功');
+                return  redirect('http://lishanlei.cn/#/select/支付成功');
             }else{
-                return  redirect('http://lishanlei.cn/getopenid#/select/支付失败');
+                return  redirect('http://lishanlei.cn/#/select/支付失败');
             }
         }
     }
@@ -64,8 +64,8 @@ class AlipayWapController extends Controller {
                     WeChatPayDatabase::updateorstatus($out_trade_no);
                 }
             }
-            return  redirect('http://lishanlei.cn/getopenid#/select');
+            return  redirect('http://lishanlei.cn/#/select');
         }
-        return  redirect('http://lishanlei.cn/getopenid#/select');
+        return  redirect('http://lishanlei.cn/#/select');
     }
 }

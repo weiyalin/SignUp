@@ -236,7 +236,7 @@
         methods: {
             remain(msg){
                 alert(msg);
-                location.href='http://localhost/getopenid#/select';
+                location.href='http://lishanlei.cn/#/select';
             },
             chosepay(){
                 var ua = window.navigator.userAgent.toLowerCase();
@@ -248,7 +248,6 @@
                 }
             },
             pay(){
-                console.log(this.student_id+this.student.phone);
                 this.$http.post('wechatpay/getpay',{
                     student_id : this.student_id,
                     phone      : this.student.phone,
@@ -303,7 +302,7 @@
                 this.$http.post('/wechatpay/updateOrder', {
                     id : orderid,
                 }).then(
-                    location.reload()                  //刷新当前页面
+                    this.onSearchClick()
                 )
             },
             remove_spaces(){
