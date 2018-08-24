@@ -195,6 +195,7 @@
                 return false;
             },
             onSubmit() {
+                let self = this;
                 this.remove_spaces();
                 if(this.test()){
                     this.$http.post('/sign',{
@@ -211,7 +212,7 @@
                             var data = response.data;
                             if(data.code == 0){
                                alert(data.msg);
-                               this.chosepay()
+                                self.chosepay()
                             }else if(data.code == 1) {
                                 this.$message({
                                     showClose: true,
@@ -220,7 +221,7 @@
                                 });
                             }else if(data.code == 2) {
                                 alert(data.msg);
-                                this.chosepay()
+                                self.chosepay()
                             }
                         }
                     )
@@ -236,6 +237,7 @@
                 }
             },
             postpay(){
+                let self = this;
                 this.$http.post('wechatpay/getpay',{
                     student_id : this.form.student_id,
                     phone      : this.form.phone,
@@ -243,7 +245,7 @@
                 }).then(
                     function (response) {
                         if(response.data.code == 1){
-                            this.sicallpay(response.data.result);
+                            self.sicallpay(response.data.result);
                         }
                         else{
                             alert(response.data.msg);

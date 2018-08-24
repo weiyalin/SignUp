@@ -11,7 +11,7 @@ class StudentDatabase extends Model
     //查询全部学生的信息
     public static function seallstudent()
     {
-        $allstuinma = DB::table('student')->get();
+        $allstuinma = DB::table('newstudent')->get();
         return $allstuinma;
     }
     /**
@@ -21,7 +21,7 @@ class StudentDatabase extends Model
     //根据学生ID匹配查询
     public static function acordstuidse($student_id)
     {
-        $count = DB::table('student')->where('student_id',$student_id)->count();
+        $count = DB::table('newstudent')->where('student_id',$student_id)->count();
         return $count;
     }
     /**
@@ -31,7 +31,7 @@ class StudentDatabase extends Model
     //根据学生Phone匹配查询
     public static function acordstuphose($phone)
     {
-        $count = DB::table('student')->where('phone',$phone)->count();
+        $count = DB::table('newstudent')->where('phone',$phone)->count();
         return $count;
     }
     /**
@@ -60,7 +60,7 @@ class StudentDatabase extends Model
             return json_encode(['code' => 1, 'msg' => '电话号码被占用']);
         }
         $creatime = ceil(microtime(true) * 1000);
-        $studentid = DB::table('student')->insertGetid([
+        $studentid = DB::table('newstudent')->insertGetid([
             'name'           =>$name,
             'sex'            =>$sex,
             'faculty'        =>$faculty,
@@ -84,7 +84,7 @@ class StudentDatabase extends Model
     public static function sefirststu($student_id)
     {
             $isstudeorder = WeChatPayDatabase::acstuseorder($student_id);  //查学生是否已经交费
-            $student = DB::table("student")->where('student_id',$student_id)->first();
+            $student = DB::table("newstudent")->where('student_id',$student_id)->first();
             return json_encode([
                 'code' => 0,
                 'msg' => [
@@ -108,7 +108,7 @@ class StudentDatabase extends Model
     //根据手机号和学生ID，,反查询，判断手机号是否被占用
     public static function acstuidsephon($student_id,$phone)
     {
-       $count = DB::table("student")
+       $count = DB::table("newstudent")
              ->where('student_id','!=',$student_id)
              ->where('phone',$phone)->count();
        return $count;
@@ -128,7 +128,7 @@ class StudentDatabase extends Model
     public static function updatestuinma($student_id,$name,$sex,$faculty,$profession,$class,$phone,$QQ)
     {
         $updatetime=ceil(microtime(true) * 1000);
-        $count=DB::table("student")
+        $count=DB::table("newstudent")
            ->where('student_id',$student_id)
            ->update([
                'name'          => $name,

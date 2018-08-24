@@ -248,6 +248,7 @@
                 }
             },
             pay(){
+                let self = this;
                 this.$http.post('wechatpay/getpay',{
                     student_id : this.student_id,
                     phone      : this.student.phone,
@@ -256,7 +257,7 @@
                     function (response) {
                         console.log(response);
                         if(response.data.code == 1){
-                            this.callpay(response.data.result);
+                            self.callpay(response.data.result);
                         }else{
                             alert(response.data.msg);
                         }
