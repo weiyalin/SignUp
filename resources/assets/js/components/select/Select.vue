@@ -236,6 +236,7 @@
         methods: {
             remain(msg){
                 alert(msg);
+                location.href='http://localhost/getopenid#/select';
             },
             chosepay(){
                 var ua = window.navigator.userAgent.toLowerCase();
@@ -290,7 +291,7 @@
                     },
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
-                            alert("恭喜你，支付成功"+result.payId);
+                            alert("恭喜你，支付成功");
                             self.updateOrder(result.payId);
                         }else {
                             alert("支付失败");

@@ -180,7 +180,7 @@ class WechatPayController  extends Controller
                 return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2fffc402a50e03a5&redirect_uri=http://www.lishanlei.cn/getopenid&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
             }
         }
-        return view('index');
+        return redirect('/');
     }
 
     /**支付后回调
@@ -191,12 +191,10 @@ class WechatPayController  extends Controller
             $out_no = $notify->out_trade_no;
             // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
             $order = WeChatPayDatabase::sestuordernum($out_no);
-            Log::info($out_no.'tttttttt'.$order.'hhhhhhhhhhhhh');
             if (!$order) {                             // 如果订单不存在
                 return 'Order not exist.';             // 告诉微信，我已经处理完了，订单没找到，别再通知我了
             }
             if ($successful) {                         // 用户是否支付成功
-                Log::info($out_no.'tttttttt'.$order.'hhhhhhhhhhhhh');
                 WeChatPayDatabase::updateorstatus($out_no);
                 return true;
             } else {                                   // 用户支付失败
