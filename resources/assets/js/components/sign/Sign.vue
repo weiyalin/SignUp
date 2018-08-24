@@ -278,6 +278,7 @@
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
                             alert("恭喜你，支付成功");
                             self.updateOrder(result.payId);
+                            location.href='http://localhost/getopenid#/select';
                         }else {
                             alert("支付失败");
                         }

@@ -103,6 +103,9 @@
                 <el-button class="my_submit" type="primary" @click="onSubmit">修改</el-button>
             </el-form-item>
         </el-form>
+        <p v-if="$route.params.paystatus != undefined">
+          {{  this.remain($route.params.paystatus)}}
+        </p>
     </div>
 </template>
 
@@ -231,6 +234,9 @@
             }
         },
         methods: {
+            remain(msg){
+                alert(msg);
+            },
             chosepay(){
                 var ua = window.navigator.userAgent.toLowerCase();
                 if (ua.match(/MicroMessenger/i) == 'micromessenger') {
@@ -295,7 +301,9 @@
             updateOrder(orderid){
                 this.$http.post('/wechatpay/updateOrder', {
                     id : orderid,
-                })
+                }).then(
+                    location.reload()                  //刷新当前页面
+                )
             },
             remove_spaces(){
                 this.student_id  = this.student_id.trim();

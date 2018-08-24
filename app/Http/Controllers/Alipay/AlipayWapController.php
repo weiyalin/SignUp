@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\libs\alipay\wappay\buildermodel\AlipayTradeWapPayContentBuilder;
 use App\libs\alipay\wappay\service\AlipayTradeService;
 use App\Model\WeChatPayDatabase;
-use Illuminate\Support\Facades\Log;
-
 class AlipayWapController extends Controller {
 
     //学生支付，调用支付宝接口
@@ -15,7 +13,6 @@ class AlipayWapController extends Controller {
         $phone = $request->phone;
         $student_id = $request->student_id;
         $pay_ways   = $request->pay_ways;
-        Log::info($pay_ways.'tttttttthhhhhhhhhhhhh');
         $out_trade_no = 'zan' . uniqid();
         WeChatPayDatabase::insertstuorder($student_id,$phone,$out_trade_no,$pay_ways);
         $subject = '报名费';
@@ -45,12 +42,12 @@ class AlipayWapController extends Controller {
                     $order = WeChatPayDatabase::acordoutranse($out_trade_no);
                     if($order){
                         WeChatPayDatabase::updateorstatus($out_trade_no);
-                        return view('index')->with('paystatus','已报名成功，请关注后续通知。一定加QQ群( 619589995 )');
+                        return  redirect('http://lishanlei.cn/getopenid#/select/支付成功，后续关注通知。一定要加群哦！');
                     }
                 }
-                return view('index')->with('paystatus','支付成功');
+                return  redirect('http://lishanlei.cn/getopenid#/select/支付成功');
             }else{
-                return view('index')->with('paystatus','支付失败');
+                return  redirect('http://lishanlei.cn/getopenid#/select/支付失败');
             }
         }
     }
@@ -67,8 +64,8 @@ class AlipayWapController extends Controller {
                     WeChatPayDatabase::updateorstatus($out_trade_no);
                 }
             }
-            echo 'success';
+            return  redirect('http://lishanlei.cn/getopenid#/select');
         }
-        echo 'fail';
+        return  redirect('http://lishanlei.cn/getopenid#/select');
     }
 }

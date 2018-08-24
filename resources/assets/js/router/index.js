@@ -10,7 +10,7 @@ export default new VueRouter({
             component: resolve => void(require(['../components/sign/Sign.vue'], resolve))
         },
         {
-            path: '/select',
+            path: '/select/:paystatus?',
             component: resolve => void(require(['../components/select/Select.vue'], resolve))
         },
     ]

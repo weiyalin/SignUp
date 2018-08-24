@@ -76,7 +76,6 @@ class WeChatPayDatabase  extends Model
     //根据 “订单ID” ，去更新=>学生已交费
     public static function updateOrders($oederid)
     {
-        Log::info('222222222222');
         $result = DB::table('wechatpay')
             ->where('id',$oederid)
             ->update([
