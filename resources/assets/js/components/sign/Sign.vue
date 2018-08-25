@@ -211,7 +211,7 @@
                         function (response) {
                             var data = response.data;
                             if(data.code == 0){
-                               alert(data.msg);
+                                alert(data.msg);
                                 self.chosepay()
                             }else if(data.code == 1) {
                                 this.$message({
@@ -233,7 +233,7 @@
                     this.postpay();
                 }else {
                     this.pay_ways = 1;
-                    window.location.href = '/alipay/wappay?phone='+this.student.phone+'&student_id='+this.student_id+'&pay_ways='+this.pay_ways;
+                    window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id+'&pay_ways='+this.pay_ways;
                 }
             },
             postpay(){

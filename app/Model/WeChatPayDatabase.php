@@ -63,7 +63,6 @@ class WeChatPayDatabase  extends Model
    //根据订单号，修改学生的支付状态
     public static function updateorstatus($out_trade_no)
     {
-        Log::info('1111111111');
         DB::table('wechatpay')->where('out_trade_no',$out_trade_no)->update([
             'is_pay'=>1,
             'updated_time' => time()
