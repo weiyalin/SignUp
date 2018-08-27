@@ -279,14 +279,20 @@
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
                             alert("恭喜你，支付成功");
-                            self.updateOrder(result.payId);
-                            location.href='http://localhost/getopenid#/select';
+                            self.updateOrders(result.payId);
                         }else {
                             alert("支付失败");
                         }
                     }
                 );
-            }
+            },
+            updateOrders(orderid){
+                this.$http.post('/wechatpay/updateOrder', {
+                    id : orderid,
+                }).then(
+                    location.href='http://localhost/getopenid#/select'
+                )
+            },
         }
     }
 </script>
