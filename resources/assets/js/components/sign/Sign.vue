@@ -290,7 +290,7 @@
                 this.$http.post('/wechatpay/updateOrder', {
                     id : orderid,
                 }).then(
-                    location.href='http://localhost/getopenid#/select'
+                    location.href='http://lishanlei.cn/#/select'
                 )
             },
         }
