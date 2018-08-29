@@ -47,8 +47,11 @@
                 <el-input placeholder="QQ号码" v-model="form.QQ"></el-input>
             </el-form-item>
             <el-form-item>
+                <el-input placeholder="个人简历 ...... 不要超过200字哦！" v-model="form.introduce" type="textarea" :maxlength="200"></el-input>
+            </el-form-item>
+            <el-form-item>
                 <div style="text-align: center">
-                    <p style="margin: 0;color: red">报名费十元，面试后全额退还</p>
+                    <p style="margin: 0;color: red">报名费十元</p>
                 </div>
             </el-form-item>
             <el-form-item>
@@ -69,6 +72,9 @@
     </div>
 </template>
 <style>
+    .el-textarea textarea{
+        height: 100px;
+    }
     .open{
         width: 100px;
         font-size: 12px;
@@ -144,6 +150,7 @@
                     student_id: '',
                     phone:  '',
                     QQ:         '',
+                    introduce:   '',
                 },
                 pay_ways : 0,
                 time: 0,
@@ -207,6 +214,7 @@
                         student_id : this.form.student_id,
                         phone      : this.form.phone,
                         QQ         : this.form.QQ,
+                        introduce  : this.form.introduce,
                     }).then(
                         function (response) {
                             var data = response.data;
@@ -228,6 +236,7 @@
                 }
             },
             chosepay(){
+                return;
                 var ua = window.navigator.userAgent.toLowerCase();
                 if (ua.match(/MicroMessenger/i) == 'micromessenger') {
                     this.postpay();

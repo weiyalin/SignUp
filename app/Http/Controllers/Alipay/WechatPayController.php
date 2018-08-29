@@ -8,8 +8,6 @@ use EasyWeChat\Foundation\Application;
 use Illuminate\Http\Request;
 use EasyWeChat\Payment\Order;
 use config\weixinpayconfig;
-use Illuminate\Support\Facades\Log;
-
 class WechatPayController  extends Controller
 {
     /**微信 支付 下单付款

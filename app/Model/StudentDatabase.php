@@ -46,7 +46,7 @@ class StudentDatabase extends Model
      * @return string
      */
     //添加新学生信息
-    public static function insertstudent($name,$sex,$faculty,$profession,$class,$student_id,$phone,$QQ)
+    public static function insertstudent($name,$sex,$faculty,$profession,$class,$student_id,$phone,$QQ,$introduce)
     {
         $acordstuidct = StudentDatabase::acordstuidse($student_id);
         $acordstuphoe = StudentDatabase::acordstuphose($phone);
@@ -69,7 +69,8 @@ class StudentDatabase extends Model
             'student_id'     =>$student_id,
             'phone'          =>$phone,
             'QQ'             =>$QQ,
-            'create_time'    =>$creatime
+            'create_time'    =>$creatime,
+            'introduce'      =>$introduce
         ]);
         if ($studentid){
             return json_encode(['code' => 0, 'msg' => '报名成功']);
@@ -95,8 +96,9 @@ class StudentDatabase extends Model
                     'class'       => $student->class,
                     'phone'       => $student->phone,
                     'QQ'          => $student->QQ,
+                    'introduce'   => $student->introduce,
                     'create_time' => $student->create_time,
-                    'is_pay'      => $isstudeorder
+                    'is_pay'      => $isstudeorder,
                 ]
             ]);
     }
@@ -125,7 +127,7 @@ class StudentDatabase extends Model
      * @return string
      */
     //修改学生的信息
-    public static function updatestuinma($student_id,$name,$sex,$faculty,$profession,$class,$phone,$QQ)
+    public static function updatestuinma($student_id,$name,$sex,$faculty,$profession,$class,$phone,$QQ,$introduce)
     {
         $updatetime=ceil(microtime(true) * 1000);
         $count=DB::table("newstudent")
@@ -138,6 +140,7 @@ class StudentDatabase extends Model
                'class'         => $class,
                'phone'         => $phone,
                'QQ'            => $QQ,
+               'introduce'     => $introduce,
                'update_time'   => $updatetime
            ]);
         if($count){

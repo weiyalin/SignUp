@@ -12,6 +12,7 @@ class StudentController extends Controller
      */
     //学生报名,把信息放入数据库
     public function sign(Request $request){
+        $introduce  = $request->introduce;
         $name       = trim($request->name);
         $sex        = trim($request->sex);
         $faculty    = trim($request->faculty);
@@ -20,12 +21,11 @@ class StudentController extends Controller
         $student_id = trim($request->student_id);
         $phone      = trim($request->phone);
         $QQ         = trim($request->QQ);
-
         if( strlen($name) == 0 ||  strlen($class) == 0 || strlen($student_id) == 0 || strlen($phone) == 0
             || strlen($profession) == 0 || strlen($QQ) == 0){
             return json_encode(['code' => 1, 'msg' => '请将数据填写完整']);
         }
-        $stuid = StudentDatabase::insertstudent($name,$sex,$faculty,$profession,$class,$student_id,$phone,$QQ);
+        $stuid = StudentDatabase::insertstudent($name,$sex,$faculty,$profession,$class,$student_id,$phone,$QQ,$introduce);
         return $stuid;
     }
     /**
@@ -62,7 +62,7 @@ class StudentController extends Controller
         $student_id = trim($request->student_id);
         $phone      = trim($request->phone);
         $QQ         = trim($request->QQ);
-
+        $introduce  = $request->introduce;
         if( strlen($name) == 0 ||  strlen($class) == 0 || strlen($student_id) == 0 || strlen($phone) == 0
             || strlen($profession) == 0 || strlen($QQ) == 0){
             return json_encode(['code' => 1, 'msg' => '请将数据填写完整']);
@@ -75,7 +75,7 @@ class StudentController extends Controller
         if($cotstuph != 0){
             return json_encode(['code' => 1, 'msg' => '电话号码已被占用']);
         }
-        $upstuinma = StudentDatabase::updatestuinma($student_id,$name,$sex,$faculty,$profession,$class,$phone,$QQ);
+        $upstuinma = StudentDatabase::updatestuinma($student_id,$name,$sex,$faculty,$profession,$class,$phone,$QQ,$introduce);
         return  $upstuinma;
     }
 }

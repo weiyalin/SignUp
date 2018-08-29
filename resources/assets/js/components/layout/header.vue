@@ -54,7 +54,7 @@
     background-image: url('/dist/img/background.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    height: 1500px;
+    height: 1580px;
         }
     .text{
         font-size: 43px;

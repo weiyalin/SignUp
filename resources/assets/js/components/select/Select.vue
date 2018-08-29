@@ -41,6 +41,10 @@
                 <el-col :span="14">{{ student.QQ }}</el-col>
             </el-row>
             <el-row :gutter="20">
+                <el-col class="title" :span="10">个人简历</el-col>
+                <el-col :span="14">{{ student.introduce }}</el-col>
+            </el-row>
+            <el-row :gutter="20">
                 <el-col class="title" :span="10">时间</el-col>
                 <el-col :span="14">{{new Date(student.create_time).format('yyyy-MM-dd hh:mm')}}</el-col>
             </el-row>
@@ -100,6 +104,9 @@
                 <el-input placeholder="QQ号码" v-model="student.QQ"></el-input>
             </el-form-item>
             <el-form-item>
+                <el-input placeholder="个人简历 ...... 不要超过200字哦！" v-model="student.introduce" type="textarea"></el-input>
+            </el-form-item>
+            <el-form-item>
                 <el-button class="my_submit" type="primary" @click="onSubmit">修改</el-button>
             </el-form-item>
         </el-form>
@@ -110,6 +117,9 @@
 </template>
 
 <style>
+    .el-textarea textarea{
+        height: 100px;
+    }
       @media (min-width: 200px) and (max-width: 499px) {
           .my_item{
               margin-right: 0 !important;
@@ -124,6 +134,7 @@
         width: 100%;
     }
     .my_submit{
+        margin-left: 39%;
         width: 100%;
     }
     .search-item{
@@ -140,6 +151,10 @@
         width: 100%;
     }
       @media  only screen and (min-width: 500px){
+        .my_submit{
+            margin-left: 0px!important;
+            background-color: #c5d4e8;
+          }
         .searchnum{
             width: 18% !important;
             margin-left: 28%;
@@ -155,7 +170,6 @@
             font-size: 17px!important;
         }
         .el-button--primary{
-            width: 100px;
             height: 44px;
         }
         .information{
@@ -166,6 +180,7 @@
 
         }
         .reset_submit{
+            width: 100px;
             margin-left: 25%;
         }
         .el-row{
@@ -228,6 +243,7 @@
                     student_id  : '',
                     phone       : '',
                     QQ          : '',
+                    introduce   : '',
                     create_time : 0,
                     is_pay      : 0
                 }
@@ -333,6 +349,7 @@
                             var data = response.data;
                             this.searching = false;
                             if(data.code == 0){
+                                alert(data.msg.introduce);
                                 this.show_reset = false;
                                 this.show_meg = true;
                                 this.student.name       = data.msg.name;
@@ -342,6 +359,7 @@
                                 this.student.class      = data.msg.class;
                                 this.student.phone      = data.msg.phone;
                                 this.student.QQ         = data.msg.QQ;
+                                this.student.introduce  = data.msg.introduce;
                                 this.student.create_time= data.msg.create_time;
                                 this.student.is_pay     = data.msg.is_pay;
                             } else {
@@ -414,7 +432,8 @@
                         class      : this.student.class,
                         student_id : this.student.student_id,
                         phone      : this.student.phone,
-                        QQ         : this.student.QQ
+                        QQ         : this.student.QQ,
+                        introduce  : this.student.introduce
                     }).then(
                         function (response) {
                             var data = response.data;
