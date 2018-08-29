@@ -134,7 +134,6 @@
         width: 100%;
     }
     .my_submit{
-        margin-left: 39%;
         width: 100%;
     }
     .search-item{
