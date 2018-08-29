@@ -271,7 +271,6 @@
                     pay_ways   : this.pay_ways,
                 }).then(
                     function (response) {
-                        console.log(response);
                         if(response.data.code == 1){
                             self.callpay(response.data.result);
                         }else{
@@ -349,7 +348,6 @@
                             var data = response.data;
                             this.searching = false;
                             if(data.code == 0){
-                                alert(data.msg.introduce);
                                 this.show_reset = false;
                                 this.show_meg = true;
                                 this.student.name       = data.msg.name;
