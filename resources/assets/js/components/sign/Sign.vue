@@ -47,7 +47,7 @@
                 <el-input placeholder="QQ号码" v-model="form.QQ"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-input placeholder="个人简历 ...... 不要超过200字哦！" v-model="form.introduce" type="textarea" :maxlength="200"></el-input>
+                <el-input placeholder="个人简历 ...... 不要超过200字哦！(获奖经历或者所参加的重大活动)" v-model="form.introduce" type="textarea" :maxlength="200"></el-input>
             </el-form-item>
             <el-form-item>
                 <div style="text-align: center">
@@ -140,7 +140,7 @@
     export default {
         data() {
             return {
-                img_group : '/dist/img/marchsoft.png',
+                img_group : '/dist/img/marchsofts.png',
                 form: {
                     name:       '',
                     sex :       '1',
