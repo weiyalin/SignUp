@@ -27,10 +27,11 @@ Route::post('/sms','sms\smsController@code');                           //发送
 
 Route::any('/ceshi','sms\ceshiSms@aaa');
 //
-Route::get('stuissign','student\StudentController@seornumse');
+Route::post('stuissign','student\StudentController@seornumse');         //查询学生是否报名或者手机号是否被占用
+Route::post('savestuma','Alipay\AlipayWapController@saveinmation');                    //把学生信息存进session
 //支付宝支付
 Route::group(['prefix' => 'alipay'],function() {
-    Route::post('wappay','Alipay\AlipayWapController@alipayWapPay');     //
+    Route::get('wappay','Alipay\AlipayWapController@alipayWapPay');     //
     Route::get('return','Alipay\AlipayWapController@alipayReturn');     //
     Route::get('notify','Alipay\AlipayWapController@alipayNotify');     //
 });

@@ -81,11 +81,16 @@ class StudentController extends Controller
      //根据学生提交的学号，去查看学生是否已经报名
      public function seornumse(Request $request)
      {
-       $res = StudentDatabase::acordstuidse($request->student_id);
-       if($res == 1){
-           return json_encode(['code' => 1, 'msg' => '你已经报名']);
-       }else{
-           return json_encode(['code' => 0, 'msg' => '未经报名']);
-       }
+           $res = StudentDatabase::acordstuidse($request->student_id);
+           if($res == 1){
+               return json_encode(['code' => 1, 'msg' => '你已经报名']);
+           }else{
+               $result = StudentDatabase::acordstuphose($request->phone);
+               if($result == 0){
+                  return json_encode(['code' => 0, 'msg' => '未经报名']);
+               }else{
+                  return json_encode(['code' => 1, 'msg' => '电话号码被占用']);
+               }
+           }
      }
 }

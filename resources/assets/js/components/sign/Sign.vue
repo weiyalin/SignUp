@@ -231,41 +231,42 @@
                     )
                 }
             },
-            chosepay(){
+            chosepay() {
                 let self = this;
-                 this.$http.get('stuissign',{
-                     student_id : self.form.student_id,
-                 }).then(
-                     function (response) {
-                         var data = response.data;
-                         if(data.code == 1){
-                             alert(data.msg);
-                         }else {
-                             var ua = window.navigator.userAgent.toLowerCase();
-                             if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-                                 self.postpay();
-                             }else {
-                                 self.remove_spaces();
-                                 if(self.test()){
-                                     self.pay_ways = 1;
-                                     self.$http.post('alipay/wappay',{
-                                         phone      : self.form.phone,
-                                         student_id : self.form.student_id,
-                                         pay_ways   : self.pay_ways,
-                                         name       : self.form.name,
-                                         sex        : self.form.sex,
-                                         faculty    : self.form.faculty,
-                                         profession : self.form.profession,
-                                         class      : self.form.class,
-                                         QQ         : self.form.QQ,
-                                         introduce  : self.form.introduce,
-                                     })
+                self.remove_spaces();
+                // if (self.test()){
+                this.$http.post('stuissign', {
+                    phone:      self.form.phone,
+                    student_id: self.form.student_id,
+                }).then(
+                      function (response) {
+                            var data = response.data;
+                            if (data.code == 1) {
+                                alert(data.msg);
+                            } else {
+                                var ua = window.navigator.userAgent.toLowerCase();
+                                if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                                    self.postpay();
+                                } else {
+                                    self.pay_ways = 1;
+                                    self.$http.post('savestuma',{
+                                        phone:      self.form.phone,
+                                        student_id: self.form.student_id,
+                                        pay_ways:   self.pay_ways,
+                                        name:       self.form.name,
+                                        sex:        self.form.sex,
+                                        faculty:    self.form.faculty,
+                                        profession: self.form.profession,
+                                        class:      self.form.class,
+                                        QQ:         self.form.QQ,
+                                        introduce:  self.form.introduce,
+                                    });
+                                    window.location.href = '/alipay/wappay?phone='+self.form.phone+'&student_id='+self.form.student_id+'&pay_ways='+self.pay_ways;
                                  }
-                                 // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id+'&pay_ways='+this.pay_ways;
-                             }
-                         }
-                     }
-                 )
+                            }
+                      }
+                   )
+                // }
             },
             postpay(){
                 let self = this;

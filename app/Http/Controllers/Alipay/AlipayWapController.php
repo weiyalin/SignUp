@@ -14,17 +14,6 @@ class AlipayWapController extends Controller {
         $phone = $request->phone;
         $student_id = $request->student_id;
         $pay_ways   = $request->pay_ways;
-        session([
-            'student_id'=>$student_id,
-            'phone'     =>$phone,
-            'name'      =>$request->name,
-            'sex'       =>$request->sex,
-            'faculty'   =>$request->faculty,
-            'profession'=>$request->profession,
-            'class'     =>$request->class,
-            'QQ'        =>$request->QQ,
-            'introduce' =>$request->introduce
-             ]);
         $out_trade_no = 'zan' . uniqid();
         WeChatPayDatabase::insertstuorder($student_id,$phone,$out_trade_no,$pay_ways);
         $subject = '报名费';
@@ -89,5 +78,20 @@ class AlipayWapController extends Controller {
             return  redirect('http://lishanlei.cn/#/select');
         }
         return  redirect('http://lishanlei.cn/#/select');
+    }
+    //把用户的东西存入session
+    public function saveinmation(Request $request)
+    {
+        session([
+            'student_id'=>$request->student_id,
+            'phone'     =>$request->phone,
+            'name'      =>$request->name,
+            'sex'       =>$request->sex,
+            'faculty'   =>$request->faculty,
+            'profession'=>$request->profession,
+            'class'     =>$request->class,
+            'QQ'        =>$request->QQ,
+            'introduce' =>$request->introduce
+        ]);
     }
 }
