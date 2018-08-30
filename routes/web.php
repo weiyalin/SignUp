@@ -29,7 +29,7 @@ Route::any('/ceshi','sms\ceshiSms@aaa');
 //
 //支付宝支付
 Route::group(['prefix' => 'alipay'],function() {
-    Route::get('wappay','Alipay\AlipayWapController@alipayWapPay');     //
+    Route::post('wappay','Alipay\AlipayWapController@alipayWapPay');     //
     Route::get('return','Alipay\AlipayWapController@alipayReturn');     //
     Route::get('notify','Alipay\AlipayWapController@alipayNotify');     //
 });

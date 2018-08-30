@@ -50,11 +50,7 @@ class StudentDatabase extends Model
     {
         $acordstuidct = StudentDatabase::acordstuidse($student_id);
         $acordstuphoe = StudentDatabase::acordstuphose($phone);
-        $isstudeorder = WeChatPayDatabase::acstuseorder($student_id);
         if($acordstuidct){
-            if(!$isstudeorder){
-                return json_encode(['code' => 2, 'msg' => '未付款，请继续付款']);
-            }
             return json_encode(['code' => 1, 'msg' => '已报名，请不要重复报名']);
         }else if($acordstuphoe){
             return json_encode(['code' => 1, 'msg' => '电话号码被占用']);

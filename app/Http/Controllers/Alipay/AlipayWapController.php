@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Alipay;
 
+use App\Model\StudentDatabase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\libs\alipay\wappay\buildermodel\AlipayTradeWapPayContentBuilder;
@@ -13,6 +14,17 @@ class AlipayWapController extends Controller {
         $phone = $request->phone;
         $student_id = $request->student_id;
         $pay_ways   = $request->pay_ways;
+        session([
+            'student_id'=>$student_id,
+            'phone'     =>$phone,
+            'name'      =>$request->name,
+            'sex'       =>$request->sex,
+            'faculty'   =>$request->faculty,
+            'profession'=>$request->profession,
+            'class'     =>$request->class,
+            'QQ'        =>$request->QQ,
+            'introduce' =>$request->introduce
+             ]);
         $out_trade_no = 'zan' . uniqid();
         WeChatPayDatabase::insertstuorder($student_id,$phone,$out_trade_no,$pay_ways);
         $subject = '报名费';
@@ -42,12 +54,22 @@ class AlipayWapController extends Controller {
                     $order = WeChatPayDatabase::acordoutranse($out_trade_no);
                     if($order){
                         WeChatPayDatabase::updateorstatus($out_trade_no);
-                        return  redirect('http://lishanlei.cn/#/select/支付成功，后续关注通知。一定要加群哦！');
+                        $student_id = session('student_id');
+                        $phone      = session('phone');
+                        $name       = session('name');
+                        $sex        = session('sex');
+                        $faculty    = session('faculty');
+                        $profession = session('profession');
+                        $QQ         = session('QQ');
+                        $class      = session('class');
+                        $introduce  = session('introduce');
+                        StudentDatabase::insertstudent($name,$sex,$faculty,$profession,$class,$student_id,$phone,$QQ,$introduce);
+                        return  redirect('http://lishanlei.cn/#/select/报名成功');
                     }
                 }
-                return  redirect('http://lishanlei.cn/#/select/支付成功');
+                return  redirect('http://lishanlei.cn/#/select/报名成功');
             }else{
-                return  redirect('http://lishanlei.cn/#/select/支付失败');
+                return  redirect('http://lishanlei.cn/#/select/报名失败');
             }
         }
     }

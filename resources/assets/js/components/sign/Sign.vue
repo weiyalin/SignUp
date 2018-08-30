@@ -55,7 +55,7 @@
                 </div>
             </el-form-item>
             <el-form-item>
-                <el-button class="my_submit" type="primary" @click="onSubmit">报名</el-button>
+                <el-button class="my_submit" type="primary" @click="chosepay">报名</el-button>
             </el-form-item>
             <el-form-item class="positionimg">
                 <div class="img">
@@ -202,7 +202,6 @@
                 return false;
             },
             onSubmit() {
-                let self = this;
                 this.remove_spaces();
                 if(this.test()){
                     this.$http.post('/sign',{
@@ -220,16 +219,13 @@
                             var data = response.data;
                             if(data.code == 0){
                                 alert(data.msg);
-                                self.chosepay()
+                                location.href='http://lishanlei.cn/#/select'
                             }else if(data.code == 1) {
                                 this.$message({
                                     showClose: true,
                                     message: data.msg,
                                     type: 'error'
                                 });
-                            }else if(data.code == 2) {
-                                alert(data.msg);
-                                self.chosepay()
                             }
                         }
                     )
@@ -240,8 +236,23 @@
                 if (ua.match(/MicroMessenger/i) == 'micromessenger') {
                     this.postpay();
                 }else {
-                    this.pay_ways = 1;
-                    window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id+'&pay_ways='+this.pay_ways;
+                    this.remove_spaces();
+                    if(this.test()){
+                        this.pay_ways = 1;
+                        this.$http.post('alipay/wappay',{
+                            phone      : this.form.phone,
+                            student_id : this.form.student_id,
+                            pay_ways   : this.pay_ways,
+                            name       : this.form.name,
+                            sex        : this.form.sex,
+                            faculty    : this.form.faculty,
+                            profession : this.form.profession,
+                            class      : this.form.class,
+                            QQ         : this.form.QQ,
+                            introduce  : this.form.introduce,
+                        })
+                    }
+                    // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id+'&pay_ways='+this.pay_ways;
                 }
             },
             postpay(){
@@ -286,19 +297,19 @@
                     },
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
-                            alert("恭喜你，支付成功");
                             self.updateOrders(result.payId);
                         }else {
-                            alert("支付失败");
+                            alert("支付失败,无法报名");
                         }
                     }
                 );
             },
             updateOrders(orderid){
+                let self = this;
                 this.$http.post('/wechatpay/updateOrder', {
                     id : orderid,
                 }).then(
-                    location.href='http://lishanlei.cn/#/select'
+                    self.onSubmit()
                 )
             },
         }
