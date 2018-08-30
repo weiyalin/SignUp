@@ -232,28 +232,40 @@
                 }
             },
             chosepay(){
-                var ua = window.navigator.userAgent.toLowerCase();
-                if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-                    this.postpay();
-                }else {
-                    this.remove_spaces();
-                    if(this.test()){
-                        this.pay_ways = 1;
-                        this.$http.post('alipay/wappay',{
-                            phone      : this.form.phone,
-                            student_id : this.form.student_id,
-                            pay_ways   : this.pay_ways,
-                            name       : this.form.name,
-                            sex        : this.form.sex,
-                            faculty    : this.form.faculty,
-                            profession : this.form.profession,
-                            class      : this.form.class,
-                            QQ         : this.form.QQ,
-                            introduce  : this.form.introduce,
-                        })
-                    }
-                    // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id+'&pay_ways='+this.pay_ways;
-                }
+                let self = this;
+                 this.$http.get('stuissign',{
+                     student_id : self.form.student_id,
+                 }).then(
+                     function (response) {
+                         var data = response.data;
+                         if(data.code == 1){
+                             alert(data.msg);
+                         }else {
+                             var ua = window.navigator.userAgent.toLowerCase();
+                             if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                                 self.postpay();
+                             }else {
+                                 self.remove_spaces();
+                                 if(self.test()){
+                                     self.pay_ways = 1;
+                                     self.$http.post('alipay/wappay',{
+                                         phone      : self.form.phone,
+                                         student_id : self.form.student_id,
+                                         pay_ways   : self.pay_ways,
+                                         name       : self.form.name,
+                                         sex        : self.form.sex,
+                                         faculty    : self.form.faculty,
+                                         profession : self.form.profession,
+                                         class      : self.form.class,
+                                         QQ         : self.form.QQ,
+                                         introduce  : self.form.introduce,
+                                     })
+                                 }
+                                 // window.location.href = '/alipay/wappay?phone='+this.form.phone+'&student_id='+this.form.student_id+'&pay_ways='+this.pay_ways;
+                             }
+                         }
+                     }
+                 )
             },
             postpay(){
                 let self = this;

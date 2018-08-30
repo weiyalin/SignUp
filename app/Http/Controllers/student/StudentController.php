@@ -78,4 +78,14 @@ class StudentController extends Controller
         $upstuinma = StudentDatabase::updatestuinma($student_id,$name,$sex,$faculty,$profession,$class,$phone,$QQ,$introduce);
         return  $upstuinma;
     }
+     //根据学生提交的学号，去查看学生是否已经报名
+     public function seornumse(Request $request)
+     {
+       $res = StudentDatabase::acordstuidse($request->student_id);
+       if($res == 1){
+           return json_encode(['code' => 1, 'msg' => '你已经报名']);
+       }else{
+           return json_encode(['code' => 0, 'msg' => '未经报名']);
+       }
+     }
 }

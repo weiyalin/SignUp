@@ -27,6 +27,7 @@ Route::post('/sms','sms\smsController@code');                           //发送
 
 Route::any('/ceshi','sms\ceshiSms@aaa');
 //
+Route::get('stuissign','student\StudentController@seornumse');
 //支付宝支付
 Route::group(['prefix' => 'alipay'],function() {
     Route::post('wappay','Alipay\AlipayWapController@alipayWapPay');     //
