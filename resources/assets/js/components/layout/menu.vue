@@ -1,16 +1,31 @@
 <template>
     <div class="ourmenu">
-        <el-menu class="el-menu-demo" :router="true" mode="horizontal">
-            <el-menu-item index="/" class="my_menu">我要报名</el-menu-item>
-            <el-menu-item index="select" class="my_menu">报名信息</el-menu-item>
+        <el-menu :default-active="activeIndex" @select="handleSelect" class="el-menu-demo" :router="true" mode="horizontal">
+            <el-menu-item index="/"  class="my_menu">我要报名</el-menu-item>
+            <el-menu-item index="select"  class="my_menu">报名信息</el-menu-item>
         </el-menu>
     </div>
 </template>
-<style>
+<script>
+    export default {
+        data() {
+            return {
+                activeIndex: '/',
+            };
+        },
+    }
+</script>
+<style scoped>
+    .is-active{
+        border-bottom: 5px solid;
+    }
     .my_menu{
         width: 50%;
         text-align: center;
         font-size: 18px;
+    }
+    .el-menu-item:hover{
+        border-bottom: 5px solid #17195f;
     }
     @media  only screen and (min-width: 500px){
         .ourmenu {
@@ -27,3 +42,6 @@
 
     }
 </style>
+
+
+

@@ -13,7 +13,6 @@
         width: 100%;
         height: 70px;
         text-align: center;
-        /*background-color: #17195f;*/
         position: relative;
         background:url("/dist/img/star.gif");
         background-size: cover;

@@ -69,8 +69,8 @@
             </el-form-item>
             <el-form-item>
                 <el-select v-model="student.faculty" placeholder="请选择院系" style="width: 100%">
-                    <el-option label="经济与管理学院" value="0"></el-option>
-                    <el-option label="生命科技学院" value="1"></el-option>
+                    <el-option label="信息工程学院" value="0"></el-option>
+                    <el-option label="数学科学学院" value="1"></el-option>
                     <el-option label="机电学院" value="2"></el-option>
                     <el-option label="食品学院" value="3"></el-option>
                     <el-option label="动物科技学院" value="4"></el-option>
@@ -81,10 +81,10 @@
                     <el-option label="教育科学学院" value="9"></el-option>
                     <el-option label="艺术学院" value="10"></el-option>
                     <el-option label="服装学院" value="11"></el-option>
-                    <el-option label="数学科学学院" value="12"></el-option>
+                    <el-option label="生命科技学院" value="12"></el-option>
                     <el-option label="外国语学院" value="13"></el-option>
                     <el-option label="体育学院" value="14"></el-option>
-                    <el-option label="信息工程学院" value="15"></el-option>
+                    <el-option label="经济与管理学院" value="15"></el-option>
                 </el-select>
                 <div class="open opens"><span>新科学院暂未开放</span></div>
             </el-form-item>
@@ -126,7 +126,7 @@
           }
 
       }
-      .big{
+    .big{
           height: 1500px;
       }
     .reset_submit{
