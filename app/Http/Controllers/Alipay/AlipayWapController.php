@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 use App\libs\alipay\wappay\buildermodel\AlipayTradeWapPayContentBuilder;
 use App\libs\alipay\wappay\service\AlipayTradeService;
 use App\Model\WeChatPayDatabase;
+use Illuminate\Support\Facades\Session;
 class AlipayWapController extends Controller {
-
     //学生支付，调用支付宝接口
     public function alipayWapPay(Request $request){
         $phone = $request->phone;
@@ -53,6 +53,7 @@ class AlipayWapController extends Controller {
                         $class      = session('class');
                         $introduce  = session('introduce');
                         StudentDatabase::insertstudent($name,$sex,$faculty,$profession,$class,$student_id,$phone,$QQ,$introduce);
+                        $this->deletesession();
                         return  redirect('http://lishanlei.cn/#/select/报名成功');
                     }
                 }
@@ -82,6 +83,7 @@ class AlipayWapController extends Controller {
     //把用户的东西存入session
     public function saveinmation(Request $request)
     {
+        $this->deletesession();                //在存入信息前，先把上次的session值清空,防止学生请求停止报名
         session([
             'student_id'=>$request->student_id,
             'phone'     =>$request->phone,
@@ -93,5 +95,10 @@ class AlipayWapController extends Controller {
             'QQ'        =>$request->QQ,
             'introduce' =>$request->introduce
         ]);
+    }
+    //清空session
+    public function deletesession()
+    {
+        Session::flush();
     }
 }

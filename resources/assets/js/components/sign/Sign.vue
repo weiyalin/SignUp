@@ -168,7 +168,7 @@
             },
             test(){
                 var reg_name    = /^[\u4E00-\u9FA5]{2,5}$/;
-                var reg_id      = /^20\d{8,9}$/;
+                var reg_id      = /^2018\d{6,7}$/;
                 var reg_mobile  = /^1[3|5|7|8]\d{9}$/;
                 var reg_phone   = /^0\d{2,3}-?\d{7,8}$/;
 
@@ -234,7 +234,7 @@
             chosepay() {
                 let self = this;
                 self.remove_spaces();
-                // if (self.test()){
+                if (self.test()){
                 this.$http.post('stuissign', {
                     phone:      self.form.phone,
                     student_id: self.form.student_id,
@@ -252,7 +252,6 @@
                                     self.$http.post('savestuma',{
                                         phone:      self.form.phone,
                                         student_id: self.form.student_id,
-                                        pay_ways:   self.pay_ways,
                                         name:       self.form.name,
                                         sex:        self.form.sex,
                                         faculty:    self.form.faculty,
@@ -266,7 +265,7 @@
                             }
                       }
                    )
-                // }
+                }
             },
             postpay(){
                 let self = this;
@@ -295,7 +294,6 @@
                 }else {
                     this.onBridgeReady(result);
                 }
-
             },
             onBridgeReady(result){
                 let self = this;

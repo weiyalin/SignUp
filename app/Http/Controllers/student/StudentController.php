@@ -83,7 +83,7 @@ class StudentController extends Controller
      {
            $res = StudentDatabase::acordstuidse($request->student_id);
            if($res == 1){
-               return json_encode(['code' => 1, 'msg' => '你已经报名']);
+               return json_encode(['code' => 1, 'msg' => '学号已经被占用']);
            }else{
                $result = StudentDatabase::acordstuphose($request->phone);
                if($result == 0){
