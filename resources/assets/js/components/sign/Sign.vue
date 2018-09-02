@@ -202,6 +202,7 @@
                 return false;
             },
             onSubmit() {
+                let self = this;
                 this.remove_spaces();
                 if(this.test()){
                     this.$http.post('/sign',{
@@ -221,7 +222,7 @@
                                 alert(data.msg);
                                 location.href='http://www.lishanlei.cn/#/select'
                             }else if(data.code == 1) {
-                                this.$message({
+                                self.$message({
                                     showClose: true,
                                     message: data.msg,
                                     type: 'error'
@@ -242,7 +243,7 @@
                       function (response) {
                             var data = response.data;
                             if (data.code == 1) {
-                                this.$message({
+                                self.$message({
                                     showClose: true,
                                     message: data.msg,
                                     type: 'error'
@@ -284,7 +285,7 @@
                             self.sicallpay(data.result);
                         }
                         else {
-                            this.$message({
+                            self.$message({
                                 showClose: true,
                                 message: data.msg,
                                 type: 'error'
@@ -319,7 +320,7 @@
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
                             self.updateOrders(result.payId);
                         }else {
-                            this.$message({
+                            self.$message({
                                 showClose: true,
                                 message: '支付失败,无法报名',
                                 type: 'error'
