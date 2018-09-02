@@ -6,7 +6,7 @@ export default new VueRouter({
     saveScrollPosition: true,
     routes: [
         {
-            path: '/:nav?',
+            path: '/',
             component: resolve => void(require(['../components/sign/Sign.vue'], resolve))
         },
         {
