@@ -233,8 +233,6 @@
                 }
             },
             chosepay() {
-                location.href='http://localhost/#/select';
-                return ;
                 let self = this;
                 self.remove_spaces();
                 if (self.test()){
