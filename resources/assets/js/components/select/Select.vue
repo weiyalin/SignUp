@@ -249,20 +249,8 @@
         },
         methods: {
             remain(msg){
-                if(msg == "报名成功"){
-                    this.$message({
-                        showClose: true,
-                        message: msg,
-                        type: 'success'
-                    });
-                }else {
-                    this.$message({
-                        showClose: true,
-                        message: msg,
-                        type: 'error'
-                    });
-                }
-                location.href='http://lishanlei.cn/#/select';
+                alert(msg);
+                location.href='http://www.lishanlei.cn/#/select';
             },
             chosepay(){
                 var ua = window.navigator.userAgent.toLowerCase();

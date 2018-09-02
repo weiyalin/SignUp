@@ -218,12 +218,8 @@
                         function (response) {
                             var data = response.data;
                             if(data.code == 0){
-                                this.$message({
-                                    showClose: true,
-                                    message: data.msg,
-                                    type: 'success'
-                                });
-                                location.href='http://lishanlei.cn/#/select'
+                                alert(data.msg);
+                                location.href='http://www.lishanlei.cn/#/select'
                             }else if(data.code == 1) {
                                 this.$message({
                                     showClose: true,
@@ -283,13 +279,14 @@
                     pay_ways   : this.pay_ways,
                 }).then(
                     function (response) {
-                        if(response.data.code == 1){
-                            self.sicallpay(response.data.result);
+                        let data = response.data;
+                        if(data.code == 1){
+                            self.sicallpay(data.result);
                         }
-                        else{
+                        else {
                             this.$message({
                                 showClose: true,
-                                message: response.data.msg,
+                                message: data.msg,
                                 type: 'error'
                             });
                         }
@@ -324,7 +321,7 @@
                         }else {
                             this.$message({
                                 showClose: true,
-                                message: "支付失败,无法报名",
+                                message: '支付失败,无法报名',
                                 type: 'error'
                             });
                         }
