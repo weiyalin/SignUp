@@ -53,7 +53,6 @@ class StudentController extends Controller
      */
     //修改学生的信息
     public function reset(Request $request){
-
         $name       = trim($request->name);
         $sex        = trim($request->sex);
         $faculty    = trim($request->faculty);

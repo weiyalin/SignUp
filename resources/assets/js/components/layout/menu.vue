@@ -5,7 +5,13 @@
             <el-menu-item index="select"  class="my_menu">报名信息</el-menu-item>
         </el-menu>
         <p v-if="$route.params.paystatus == undefined">
-            {{  this.remains()}}
+            {{  this.remains() }}
+        </p>
+        <p v-if="$route.params.paystatus == '报名成功'">
+            {{  this.remain($route.params.paystatus) }}
+        </p>
+        <p v-if="$route.params.paystatus == '报名失败'">
+            {{  this.faileremain($route.params.paystatus) }}
         </p>
     </div>
 </template>
@@ -36,6 +42,14 @@
             };
         },
         methods: {
+            remain(msg){
+                alert(msg);
+                location.href='http://www.lishanlei.cn/#/select';
+            },
+            faileremain(msg){
+                alert(msg);
+                location.href='http://www.lishanlei.cn';
+            },
             remains(){
                 var aturl = window.location.href;
                 if(aturl == 'http://www.lishanlei.cn/#/select'){

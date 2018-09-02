@@ -110,9 +110,6 @@
                 <el-button class="my_submit" type="primary" @click="onSubmit">修改</el-button>
             </el-form-item>
         </el-form>
-        <p v-if="$route.params.paystatus != undefined">
-          {{  this.remain($route.params.paystatus)}}
-        </p>
     </div>
 </template>
 
@@ -248,10 +245,10 @@
             }
         },
         methods: {
-            remain(msg){
-                alert(msg);
-                location.href='http://www.lishanlei.cn/#/select';
-            },
+            // remain(msg){
+            //     alert(msg);
+            //     location.href='http://www.lishanlei.cn/#/select';
+            // },
             chosepay(){
                 var ua = window.navigator.userAgent.toLowerCase();
                 if (ua.match(/MicroMessenger/i) == 'micromessenger') {

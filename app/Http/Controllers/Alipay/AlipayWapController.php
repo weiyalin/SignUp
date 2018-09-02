@@ -54,12 +54,12 @@ class AlipayWapController extends Controller {
                         $introduce  = session('introduce');
                         StudentDatabase::insertstudent($name,$sex,$faculty,$profession,$class,$student_id,$phone,$QQ,$introduce);
                         $this->deletesession();
-                        return  redirect('http://lishanlei.cn/#/select/报名成功');
+                        return  redirect('http://www.lishanlei.cn/#/select/报名成功');
                     }
                 }
-                return  redirect('http://lishanlei.cn/#/select/报名成功');
+                return  redirect('http://www.lishanlei.cn/#/select/报名成功');
             }else{
-                return  redirect('http://lishanlei.cn/#/select/报名失败');
+                return  redirect('http://www.lishanlei.cn/#/select/报名失败');
             }
         }
     }
@@ -76,9 +76,9 @@ class AlipayWapController extends Controller {
                     WeChatPayDatabase::updateorstatus($out_trade_no);
                 }
             }
-            return  redirect('http://lishanlei.cn/#/select');
+            return  redirect('http://www.lishanlei.cn/#/select');
         }
-        return  redirect('http://lishanlei.cn/#/select');
+        return  redirect('http://www.lishanlei.cn/#/select');
     }
     //把用户的东西存入session
     public function saveinmation(Request $request)
