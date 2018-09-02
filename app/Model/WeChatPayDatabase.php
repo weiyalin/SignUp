@@ -26,6 +26,10 @@ class WeChatPayDatabase  extends Model
    //把订单信息存入数据库
     public static function insertstuorder($student_id,$phone,$out_trade_no,$pay_ways)
     {
+        $rest = WeChatPayDatabase::sestuidphone($student_id);
+        if($rest > 0){
+            return ;
+        }
         $result = DB::table('wechatpay')
             ->insertGetId([
               'student_id'   => $student_id,
@@ -36,6 +40,14 @@ class WeChatPayDatabase  extends Model
               'created_time' => time()
                     ]);
         return $result;
+    }
+    //根据学生ID，去查学生是否已经交钱，如果已经交钱，不再插入支付宝订单
+    public static function sestuidphone($student_id)
+    {
+          $rest = DB::table('wechatpay')
+              ->where(['student_id'=>$student_id,'is_pay'=>1])
+              ->count();
+          return $rest;
     }
     /**
      * @param $out_trade_no
