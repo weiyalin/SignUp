@@ -161,23 +161,23 @@ class WechatPayController  extends Controller
      */
     //目的：获取用户的openid,首先获取用户的code,然后用code换取openid。
     public function index(Request $request){
-//        if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) { //如果是微信浏览器
-//            if($request->get('code')){   //如果有code参数
-//                $code=$request->get('code');
-//                $get_token_url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx2fffc402a50e03a5&secret=956397f1970f6d1b114a8ac835bc0a77&code=".$code."&grant_type=authorization_code";
-//                $ch = curl_init();
-//                curl_setopt($ch,CURLOPT_URL,$get_token_url);
-//                curl_setopt($ch,CURLOPT_HEADER,0);
-//                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
-//                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 100);
-//                $openid = curl_exec($ch);              //拿code换区opeid
-//                $Id=json_decode($openid);
-//                session(['openId' => $Id->openid]);    //存session
-//                curl_close($ch);
-//            }else{                        //没有code就先 跳转 然后回调到这里 执行上面的if获取Openid
-//                return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2fffc402a50e03a5&redirect_uri=http://www.lishanlei.cn/getopenid&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
-//            }
-//        }
+        if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) { //如果是微信浏览器
+            if($request->get('code')){   //如果有code参数
+                $code=$request->get('code');
+                $get_token_url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx2fffc402a50e03a5&secret=956397f1970f6d1b114a8ac835bc0a77&code=".$code."&grant_type=authorization_code";
+                $ch = curl_init();
+                curl_setopt($ch,CURLOPT_URL,$get_token_url);
+                curl_setopt($ch,CURLOPT_HEADER,0);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 100);
+                $openid = curl_exec($ch);              //拿code换区opeid
+                $Id=json_decode($openid);
+                session(['openId' => $Id->openid]);    //存session
+                curl_close($ch);
+            }else{                        //没有code就先 跳转 然后回调到这里 执行上面的if获取Openid
+                return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2fffc402a50e03a5&redirect_uri=http://www.lishanlei.cn/getopenid&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+            }
+        }
         return redirect('/');
     }
 
