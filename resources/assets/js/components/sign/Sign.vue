@@ -218,7 +218,11 @@
                         function (response) {
                             var data = response.data;
                             if(data.code == 0){
-                                alert(data.msg);
+                                this.$message({
+                                    showClose: true,
+                                    message: data.msg,
+                                    type: 'success'
+                                });
                                 location.href='http://lishanlei.cn/#/select'
                             }else if(data.code == 1) {
                                 this.$message({
@@ -242,7 +246,11 @@
                       function (response) {
                             var data = response.data;
                             if (data.code == 1) {
-                                alert(data.msg);
+                                this.$message({
+                                    showClose: true,
+                                    message: data.msg,
+                                    type: 'error'
+                                });
                             } else {
                                 var ua = window.navigator.userAgent.toLowerCase();
                                 if (ua.match(/MicroMessenger/i) == 'micromessenger') {
@@ -279,7 +287,11 @@
                             self.sicallpay(response.data.result);
                         }
                         else{
-                            alert(response.data.msg);
+                            this.$message({
+                                showClose: true,
+                                message: response.data.msg,
+                                type: 'error'
+                            });
                         }
                     })
             },
@@ -310,7 +322,11 @@
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
                             self.updateOrders(result.payId);
                         }else {
-                            alert("支付失败,无法报名");
+                            this.$message({
+                                showClose: true,
+                                message: "支付失败,无法报名",
+                                type: 'error'
+                            });
                         }
                     }
                 );
