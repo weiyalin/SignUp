@@ -120,12 +120,11 @@
     .el-textarea textarea{
         height: 100px;
     }
-      @media (min-width: 200px) and (max-width: 499px) {
+    @media (min-width: 200px) and (max-width: 499px) {
           .my_item{
               margin-right: 0 !important;
           }
-
-      }
+    }
     .big{
           height: 1500px;
       }
