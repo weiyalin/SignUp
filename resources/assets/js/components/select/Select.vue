@@ -205,8 +205,8 @@
             return {
                 sex       :['女','男'],
                 faculty   :[
-                    '经济与管理学院',
-                    '生命科技学院',
+                    '信息工程学院',
+                    '数学科学学院',
                     '机电学院',
                     '食品学院',
                     '动物科技学院',
@@ -217,10 +217,10 @@
                     '教育科学学院',
                     '艺术学院',
                     '服装学院',
-                    '数学科学学院',
+                    '生命科技学院',
                     '外国语学院',
                     '体育学院',
-                    '信息工程学院'
+                    '经济与管理学院',
                 ],
                 pay_ways : 0,
                 is_pc     : false,
@@ -245,10 +245,6 @@
             }
         },
         methods: {
-            // remain(msg){
-            //     alert(msg);
-            //     location.href='http://www.lishanlei.cn/#/select';
-            // },
             chosepay(){
                 var ua = window.navigator.userAgent.toLowerCase();
                 if (ua.match(/MicroMessenger/i) == 'micromessenger') {
