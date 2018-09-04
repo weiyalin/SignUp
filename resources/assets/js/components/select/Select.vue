@@ -41,12 +41,12 @@
                 <el-col :span="14">{{ student.QQ }}</el-col>
             </el-row>
             <el-row :gutter="20">
-                <el-col class="title" :span="10">个人简历</el-col>
-                <el-col :span="14">{{ student.introduce }}</el-col>
-            </el-row>
-            <el-row :gutter="20">
                 <el-col class="title" :span="10">时间</el-col>
                 <el-col :span="14">{{new Date(student.create_time).format('yyyy-MM-dd hh:mm')}}</el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col class="title" :span="10">个人简历</el-col>
+                <el-col :span="14" class="introduce">{{ student.introduce }}</el-col>
             </el-row>
             <el-row :gutter="20">
                 <el-col class="title ispay" :span="10">是否付款</el-col>
@@ -104,7 +104,7 @@
                 <el-input placeholder="QQ号码" v-model="student.QQ"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-input placeholder="个人简历 ...... 不要超过200字哦！" v-model="student.introduce" type="textarea"></el-input>
+                <el-input placeholder="个人简历 ...... 不要超过150字哦！" v-model="student.introduce" type="textarea" :maxlength="150"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button class="my_submit" type="primary" @click="onSubmit">修改</el-button>
@@ -114,6 +114,10 @@
 </template>
 
 <style>
+    .introduce{
+        width: 100%;
+        margin-top: 2%;
+    }
     .el-textarea textarea{
         height: 100px;
     }
