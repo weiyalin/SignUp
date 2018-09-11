@@ -51,7 +51,7 @@
             </el-form-item>
             <el-form-item>
                 <div style="text-align: center">
-                    <p style="margin: 0;color: red">报名费十元</p>
+                    <p style="margin: 0;color: red">报名费十元,面试结束后退还。</p>
                 </div>
             </el-form-item>
             <el-form-item>
