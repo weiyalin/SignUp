@@ -16,7 +16,7 @@ class WechatPayController  extends Controller
     protected  $app = null;
     function getPay(Request $request)
     {
-        $total_fee    = 1;                                             //付款金额，单位为分
+        $total_fee    = 1000;                                             //付款金额，单位为分
         $out_trade_no = time();                                        //平台内部订单号
         $phone        = $request->phone;                               //学生电话
         $pay_ways     = $request->pay_ways;                            //学生的支付方式
