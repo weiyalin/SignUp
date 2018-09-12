@@ -339,55 +339,27 @@
             },
             onBridgeReady(result){
                 let self = this;
-                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-                    WeixinJSBridge.invoke(
-                        'getBrandWCPayRequest', {
-                            "appId":result.appId,
-                            "timeStamp":String(result.timeStamp),
-                            "nonceStr":String(result.nonceStr),
-                            "package":result.package,
-                            "signType":"MD5",
-                            "paySign":result.paySign,
-                            "total_fee" :String(result.total_fee),
-                        },
-                        function (res) {
-                            alert(res);
-                            alert(res.err_msg);
-                            if(res.err_msg == "get_brand_wcpay_request:ok"){
-                                self.updateOrders(result.payId);
-                            }else {
-                                self.$message({
-                                    showClose: true,
-                                    message: '支付失败,无法报名',
-                                    type: 'error'
-                                });
-                            }
+                WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest', {
+                        "appId":result.appId,
+                        "timeStamp":result.timeStamp,
+                        "nonceStr":result.nonceStr,
+                        "package":result.package,
+                        "signType":"MD5",
+                        "paySign":result.paySign
+                    },
+                    function (res) {
+                        if (res.err_msg == "get_brand_wcpay_request:ok") {
+                            self.updateOrders(result.payId);
+                        } else {
+                            self.$message({
+                                showClose: true,
+                                message: '支付失败,无法报名',
+                                type: 'error'
+                            });
                         }
-                    );
-                }else {
-                    WeixinJSBridge.invoke(
-                        'getBrandWCPayRequest', {
-                            "appId": result.appId,
-                            "timeStamp": result.timeStamp,
-                            "nonceStr": result.nonceStr,
-                            "package": result.package,
-                            "signType": "MD5",
-                            "paySign": result.paySign
-                        },
-                        function (res) {
-                            alert(res.err_msg);
-                            if (res.err_msg == "get_brand_wcpay_request:ok") {
-                                self.updateOrders(result.payId);
-                            } else {
-                                self.$message({
-                                    showClose: true,
-                                    message: '支付失败,无法报名',
-                                    type: 'error'
-                                });
-                            }
-                        }
-                    );
-                }
+                    }
+                );
             },
             updateOrders(orderid){
                 let self = this;
