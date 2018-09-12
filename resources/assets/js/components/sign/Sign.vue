@@ -372,11 +372,9 @@
                             "nonceStr": result.nonceStr,
                             "package": result.package,
                             "signType": "MD5",
-                            "paySign": result.paySign,
+                            "paySign": result.paySign
                         },
                         function (res) {
-                            alert(res);
-                            alert(res.err_msg);
                             if (res.err_msg == "get_brand_wcpay_request:ok") {
                                 self.updateOrders(result.payId);
                             } else {
