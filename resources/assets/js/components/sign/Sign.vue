@@ -342,11 +342,12 @@
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', {
                         "appId":result.appId,
-                        "timeStamp":result.timeStamp,
-                        "nonceStr":result.nonceStr,
+                        "timeStamp":String(result.timeStamp),
+                        "nonceStr":String(result.nonceStr),
                         "package":result.package,
                         "signType":"MD5",
-                        "paySign":result.paySign
+                        "paySign":result.paySign,
+                        "total_fee" : result.total_fee,
                     },
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
