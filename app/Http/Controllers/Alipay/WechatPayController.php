@@ -70,7 +70,7 @@ class WechatPayController  extends Controller
                 "nonceStr"  => $result['nonce_str'],                   //随机串
                 "package"   => "prepay_id=".$result['prepay_id'],      //订单ID
                 "signType"  => weixinpayconfig::$signType,              //微信签名方式
-                "totalfee" => $total_fee
+                "totalfee" =>  $total_fee
             ];
             $paySign        = $this->MakeSign($wcPayParams);           //生成签名
             $wcPayParams['paySign'] = $paySign;                        //存签名
