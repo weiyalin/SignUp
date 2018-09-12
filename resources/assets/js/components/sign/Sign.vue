@@ -50,8 +50,8 @@
                 <el-input placeholder="个人简历 ...... 不要超过150字哦！(获奖经历或者所参加的重大活动)" v-model="form.introduce" type="textarea" :maxlength="150"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-checkbox v-model="checked" label="1"  style="color: #ffffff">我同意招新规则。</el-checkbox>
-                <span style="color: wheat;font-size: 14px;" @click="showRule">查看招新规则>></span>
+                <el-checkbox v-model="checked" label="1"class="checkb">我同意招新规则。</el-checkbox>
+                <span class="spshow" @click="showRule">查看招新规则>></span>
                 <div style="text-align: center">
                     <p style="margin: 0;color: red">报名费十元,面试结束后退还。</p>
                 </div>
@@ -84,6 +84,13 @@
         margin: 0 auto;
         position: relative;
     }
+    .checkb{
+        color: #000;
+    }
+    .spshow{
+        color: #8a6d3b;
+        font-size: 14px;
+    }
     .positionimg{
         display: flex;
         justify-content: center;
@@ -104,6 +111,12 @@
     }
 
     @media  only screen and (min-width: 500px){
+        .checkb{
+            color: #fff !important;
+        }
+        .spshow{
+            color: wheat !important;
+        }
         .inputs{
             width: 39%;
             margin-top: 2%;
