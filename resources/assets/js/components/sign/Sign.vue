@@ -339,18 +339,14 @@
             },
             onBridgeReady(result){
                 let self = this;
-                let timeStamps = String(result.timeStamp);
-                let noncestr   = String(result.nonceStr);
-                let packages   = String(result.package);
-                let paysign    = String(result.paySign);
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', {
                         "appId":result.appId,
-                        "timeStamp":timeStamps,
-                        "nonceStr":noncestr,
-                        "package":packages,
+                        "timeStamp":result.timeStamp,
+                        "nonceStr":result.nonceStr,
+                        "package":result.package,
                         "signType":"MD5",
-                        "paySign":paysign,
+                        "paySign":result.paySign,
                     },
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
