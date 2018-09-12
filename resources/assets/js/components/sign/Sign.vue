@@ -343,7 +343,7 @@
                 let noncestr   = String(result.nonceStr);
                 let packages   = String(result.package);
                 let paysign    = String(result.paySign);
-                let total      = String(result.totalfee);
+                // let total      = String(result.totalfee);
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', {
                         "appId":result.appId,
@@ -352,7 +352,7 @@
                         "package":packages,
                         "signType":"MD5",
                         "paySign":paysign,
-                        "total_fee":total
+                        "total_fee":'1000',
                     },
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
