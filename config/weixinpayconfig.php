@@ -27,6 +27,5 @@ class weixinpayconfig {
       //$wcPayParams中的参数
       public static $signType       =  'MD5';                             //微信签名方式
 
-
 }
 

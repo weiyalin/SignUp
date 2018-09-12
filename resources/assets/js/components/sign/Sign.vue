@@ -74,6 +74,9 @@
     </div>
 </template>
 <style>
+    .el-message-box{
+        width: 271px !important;
+    }
     .el-textarea textarea{
         height: 100px;
     }
@@ -337,14 +340,17 @@
             onBridgeReady(result){
                 let self = this;
                 let timeStamps = String(result.timeStamp);
+                let noncestr   = String(result.nonceStr);
+                let packages   = String(result.package);
+                let paysign    = String(result.paySign);
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', {
                         "appId":result.appId,
                         "timeStamp":timeStamps,
-                        "nonceStr":result.nonceStr,
-                        "package":result.package,
+                        "nonceStr":noncestr,
+                        "package":packages,
                         "signType":"MD5",
-                        "paySign":result.paySign
+                        "paySign":paysign,
                     },
                     function (res) {
                         if(res.err_msg == "get_brand_wcpay_request:ok"){
