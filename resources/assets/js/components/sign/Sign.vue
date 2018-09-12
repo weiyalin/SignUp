@@ -194,9 +194,8 @@
             test(){
                 var reg_name    = /^[\u4E00-\u9FA5]{2,5}$/;
                 var reg_id      = /^2018\d{6,7}$/;
-                var reg_mobile  = /^1[3|5|7|8]\d{9}$/;
+                var reg_mobile  = /^1[3|5|7|8|4|9|6]\d{9}$/;
                 var reg_phone   = /^0\d{2,3}-?\d{7,8}$/;
-
                 if(!(reg_name.test(this.form.name))){
                     this.$message({
                         showClose: true,

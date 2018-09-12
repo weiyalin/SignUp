@@ -376,7 +376,7 @@
             },
             reset_test(){
                 var reg_name    = /^[\u4E00-\u9FA5]{2,4}$/;
-                var reg_mobile  = /^1[3|5|8]\d{9}$/;
+                var reg_mobile  = /^1[3|5|8|4|7|6|9]\d{9}$/;
                 var reg_phone   = /^0\d{2,3}-?\d{7,8}$/;
 
                 if(!(reg_name.test(this.student.name))){
