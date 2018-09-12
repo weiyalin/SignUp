@@ -50,12 +50,14 @@
                 <el-input placeholder="个人简历 ...... 不要超过150字哦！(获奖经历或者所参加的重大活动)" v-model="form.introduce" type="textarea" :maxlength="150"></el-input>
             </el-form-item>
             <el-form-item>
+                <el-checkbox v-model="checked" label="1"  style="color: #ffffff">我同意招新规则。</el-checkbox>
+                <span style="color: wheat;font-size: 14px;" @click="showRule">查看招新规则>></span>
                 <div style="text-align: center">
                     <p style="margin: 0;color: red">报名费十元,面试结束后退还。</p>
                 </div>
             </el-form-item>
-            <el-form-item>
-                <el-button class="my_submit" type="primary" @click="chosepay">报名</el-button>
+            <el-form-item >
+                <el-button  class="my_submit" type="primary" @click="chosepay">报名</el-button>
             </el-form-item>
             <el-form-item class="positionimg">
                 <div class="img">
@@ -154,10 +156,17 @@
                 },
                 pay_ways : 0,
                 time: 0,
-                disabled: false
+                disabled: false,
+                checked: false
             }
         },
         methods: {
+            showRule(){
+                this.$alert('1、我同意时刻关注QQ招新群消息，如果错过重要通知后果自己承担。' +
+                    '2、我同意报名后自愿参加三月的招新活动，如果中途退出招新，报名费不予退还。', '招新规则', {
+                    confirmButtonText: '确定',
+                });
+            },
             remove_spaces(){
                 this.form.name        = this.form.name.trim();
                 this.form.profession  = this.form.profession.trim();
@@ -196,7 +205,14 @@
                         message: '电话号码错误，请重新填写',
                         type: 'warning'
                     });
-                }else {
+                }else if(!this.checked){
+                    this.$message({
+                        showClose: true,
+                        message: '请同意招新规则',
+                        type: 'warning'
+                    });
+                }
+                else {
                     return true;
                 }
                 return false;
@@ -307,10 +323,11 @@
             },
             onBridgeReady(result){
                 let self = this;
+                let timeStamps = String(result.timeStamp);
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', {
                         "appId":result.appId,
-                        "timeStamp":result.timeStamp,
+                        "timeStamp":timeStamps,
                         "nonceStr":result.nonceStr,
                         "package":result.package,
                         "signType":"MD5",
