@@ -375,6 +375,7 @@
                             "paySign": result.paySign
                         },
                         function (res) {
+                            console.log('11111');
                             if (res.err_msg == "get_brand_wcpay_request:ok") {
                                 self.updateOrders(result.payId);
                             } else {
